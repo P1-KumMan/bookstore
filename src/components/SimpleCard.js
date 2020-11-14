@@ -8,16 +8,18 @@ const useStyles = makeStyles({
     root: {
         minWidth: 275,
         height: 350,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     title: {
-        fontSize: 14,
+        fontWeight: 600,
     },
     pos: {
         marginBottom: 12,
     },
-    content: {
-        justifyContent: 'center',
-        alignContent: 'center',
+    author: {
+        fontStyle: 'italic',
     },
 })
 
@@ -29,13 +31,21 @@ export default function SimpleCard() {
     return (
         <Card className={classes.root}>
             <CardContent className={classes.content}>
-                <Typography variant="h5" component="h2">
+                <Typography
+                    variant="h5"
+                    component="h2"
+                    className={classes.title}
+                >
                     {book_name}
                 </Typography>
                 <Typography className={classes.pos} color="textSecondary">
                     by
                 </Typography>
-                <Typography variant="body2" component="p">
+                <Typography
+                    variant="body2"
+                    component="p"
+                    className={classes.author}
+                >
                     {author}
                 </Typography>
             </CardContent>
