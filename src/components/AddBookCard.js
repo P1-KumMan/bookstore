@@ -8,6 +8,7 @@ import AddCircleRoundedIcon from '@material-ui/icons/AddCircleRounded'
 const useStyles = makeStyles({
     root: {
         minWidth: 275,
+        height: 350,
     },
     title: {
         fontSize: 14,

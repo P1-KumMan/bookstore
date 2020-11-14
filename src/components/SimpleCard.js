@@ -7,17 +7,17 @@ import Typography from '@material-ui/core/Typography'
 const useStyles = makeStyles({
     root: {
         minWidth: 275,
-    },
-    bullet: {
-        display: 'inline-block',
-        margin: '0 2px',
-        transform: 'scale(0.8)',
+        height: 350,
     },
     title: {
         fontSize: 14,
     },
     pos: {
         marginBottom: 12,
+    },
+    content: {
+        justifyContent: 'center',
+        alignContent: 'center',
     },
 })
 
@@ -28,7 +28,7 @@ export default function SimpleCard() {
 
     return (
         <Card className={classes.root}>
-            <CardContent>
+            <CardContent className={classes.content}>
                 <Typography variant="h5" component="h2">
                     {book_name}
                 </Typography>
