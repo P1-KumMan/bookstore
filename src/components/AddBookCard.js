@@ -6,6 +6,7 @@ import AddCircleRoundedIcon from '@material-ui/icons/AddCircleRounded'
 import { TextField } from '@material-ui/core'
 
 import Button from '@material-ui/core/Button'
+import store from '../redux/store'
 
 const useStyles = makeStyles({
     root: {
@@ -47,6 +48,7 @@ export default function AddBookCard() {
                     size="large"
                     className={classes.button}
                     startIcon={<AddCircleRoundedIcon />}
+                    onClick={(Event) => store.dispatch.ADD_BOOK}
                 >
                     ADD BOOKS
                 </Button>
