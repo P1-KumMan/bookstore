@@ -1,7 +1,7 @@
 import { ADD_BOOK, DEL_BOOK } from '../actionTypes'
 
 const initialState = {
-    books: [],
+    books: [{}],
 }
 
 const bookStoreReducer = (state = initialState, action) => {

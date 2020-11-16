@@ -4,9 +4,11 @@ import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import AddCircleRoundedIcon from '@material-ui/icons/AddCircleRounded'
 import { TextField } from '@material-ui/core'
+import { connect, useDispatch } from 'react-redux'
 
 import Button from '@material-ui/core/Button'
 import store from '../redux/store'
+import { ADD_BOOK } from '../redux/actionTypes'
 
 const useStyles = makeStyles({
     root: {
@@ -31,10 +33,9 @@ const useStyles = makeStyles({
         marginBottom: '20px',
     },
 })
-
-export default function AddBookCard() {
+const AddBookCard = () => {
     const classes = useStyles()
-
+    const dispatch = useDispatch()
     return (
         <Card className={classes.root}>
             <CardContent>
@@ -48,7 +49,7 @@ export default function AddBookCard() {
                     size="large"
                     className={classes.button}
                     startIcon={<AddCircleRoundedIcon />}
-                    onClick={(Event) => store.dispatch.ADD_BOOK}
+                    onClick={() => dispatch({ type: ADD_BOOK })}
                 >
                     ADD BOOKS
                 </Button>
@@ -56,3 +57,5 @@ export default function AddBookCard() {
         </Card>
     )
 }
+
+export default connect()(AddBookCard)
