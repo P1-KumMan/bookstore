@@ -15,7 +15,7 @@ const useStyles = makeStyles({
 })
 
 const initialState = [
-    { title: 'Harry Potter', author: 'J. K. Rowling', id: Math.random() },
+    { title: 'Harry Potter', author: 'J.K. Rowling', id: Math.random() },
     {
         title: 'Computer Architecture',
         author: ' David A. Patterson',
@@ -49,12 +49,12 @@ const App = () => {
                     <Form
                         onSubmit={(title, author) =>
                             setstate([
+                                ...state,
                                 {
                                     title: title,
                                     author: author,
                                     id: Math.random(),
                                 },
-                                ...state,
                             ])
                         }
                     ></Form>
