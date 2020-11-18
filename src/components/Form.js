@@ -2,9 +2,7 @@ import { React, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
-// import AddCircleRoundedIcon from '@material-ui/icons/AddCircleRounded'
-// import { TextField } from '@material-ui/core'
-// import Button from '@material-ui/core/Button'
+import Api from '../Api'
 
 const useStyles = makeStyles({
     root: {
@@ -51,6 +49,13 @@ export const Form = ({ onSubmit }) => {
                         onSubmit={(e) => {
                             e.preventDefault()
                             onSubmit(titile.value, author.value)
+                            Api.post(`/books.json`, {
+                                bookname: titile.value,
+                                author: author.value,
+                            }).then((res) => {
+                                console.log(res)
+                                console.log(res.data)
+                            })
                             titile.resetValue()
                             author.resetValue()
                         }}
