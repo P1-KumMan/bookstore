@@ -1,8 +1,9 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import Card from '@material-ui/core/Card'
+import { Card, Button } from '@material-ui/core'
 import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
+import Api from '../Api'
 
 const useStyles = makeStyles({
     root: {
@@ -22,7 +23,11 @@ const useStyles = makeStyles({
         fontStyle: 'italic',
     },
 })
-
+const handledelete = (props) => {
+    Api.delete(`books/${props.id}`).then((res) => {
+        console.log(res)
+    })
+}
 const SimpleCard = (props) => {
     const classes = useStyles()
     return (
@@ -45,6 +50,13 @@ const SimpleCard = (props) => {
                 >
                     {props.author}
                 </Typography>
+                {/* <Button
+                    variant="outlined"
+                    color="secondary"
+                    onClick={(props) => handledelete}
+                >
+                    Secondary
+                </Button> */}
             </CardContent>
         </Card>
     )
