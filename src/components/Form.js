@@ -49,7 +49,7 @@ export const Form = ({ onSubmit }) => {
                         onSubmit={(e) => {
                             e.preventDefault()
                             onSubmit(titile.value, author.value)
-                            Api.post(`/books.json`, {
+                            Api.post(`books`, {
                                 bookname: titile.value,
                                 author: author.value,
                             }).then((res) => {

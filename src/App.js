@@ -2,7 +2,7 @@ import './App.css'
 import React, { useState, useEffect } from 'react'
 import ButtonAppBar from './components/ButtonAppBar'
 import SimpleCard from './components/SimpleCard'
-import { Grid, Button } from '@material-ui/core'
+import { Grid } from '@material-ui/core'
 
 import { makeStyles } from '@material-ui/core'
 import { Form } from './components/Form'
@@ -18,29 +18,22 @@ const App = () => {
     const classes = useStyles()
     const [state, setstate] = useState([])
     useEffect(() => {
-        Api.get('books.json').then((res) => {
+        Api.get('books').then((res) => {
             console.log(res)
             setstate(res.data)
         })
-    })
+    }, [state])
     console.log(state)
-    let books = []
-    for (let key in state) {
-        books.push({
-            ...state[key],
-            id: key,
-        })
-    }
     return (
         <div className="App">
             <ButtonAppBar></ButtonAppBar>
             <Grid container spacing={2} className={classes.books}>
-                {books.map((book) => {
+                {state.map((book) => {
                     console.log(book)
                     return (
                         <Grid item>
                             <SimpleCard
-                                id={book.id}
+                                id={book._id}
                                 book_name={book.bookname}
                                 author={book.author}
                             ></SimpleCard>
