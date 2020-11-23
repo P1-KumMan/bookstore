@@ -14,6 +14,7 @@ const useStyles = makeStyles({
         justifyContent: 'center',
     },
 })
+
 const App = () => {
     const classes = useStyles()
     const [loaded, setload] = useState({ load: true })
@@ -69,16 +70,7 @@ const App = () => {
             <Appbody></Appbody>
             <Grid container spacing={2} className={classes.books}>
                 <Grid item>
-                    <Form
-                        onSubmit={(title, author) =>
-                            setstate([
-                                {
-                                    title: title,
-                                    author: author,
-                                },
-                            ])
-                        }
-                    ></Form>
+                    <Form onSubmit={(title, author) => true}></Form>
                 </Grid>
             </Grid>
         </div>

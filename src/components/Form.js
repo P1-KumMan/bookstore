@@ -1,7 +1,5 @@
 import { React, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import Card from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/CardContent'
 import Api from '../Api'
 
 const useStyles = makeStyles({
@@ -38,7 +36,6 @@ const useInputValue = (initialValue) => {
 }
 
 export const Form = ({ onSubmit }) => {
-    const classes = useStyles()
     const titile = useInputValue('')
     const author = useInputValue('')
     const initialState = {
