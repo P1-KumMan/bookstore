@@ -1,30 +1,5 @@
 import { React, useState } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
 import Api from '../Api'
-
-const useStyles = makeStyles({
-    root: {
-        minWidth: 275,
-        height: 350,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    title: {
-        fontWeight: 600,
-    },
-    pos: {
-        marginBottom: 12,
-    },
-    button: {
-        alignItems: 'center',
-    },
-    form: {
-        display: 'flex',
-        flexDirection: 'column',
-        marginBottom: '20px',
-    },
-})
 
 const useInputValue = (initialValue) => {
     const [value, setValue] = useState(initialValue)
