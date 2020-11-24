@@ -7,14 +7,14 @@ import Typography from '@material-ui/core/Typography'
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
-        marginBottom: '2rem',
+        // marginBottom: '.5rem',
     },
     menuButton: {
         marginRight: theme.spacing(2),
     },
     title: {
         flexGrow: 1,
-        margin: '2rem',
+        margin: '1rem',
         fontWeight: 600,
     },
 }))
