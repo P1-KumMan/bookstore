@@ -10,18 +10,15 @@ const useInputValue = (initialValue) => {
     }
 }
 
-export const Form = ({ onSubmit }) => {
-    const titile = useInputValue('')
+export const AuthorForm = ({ onSubmit }) => {
     const author = useInputValue('')
     const initialState = {
-        nameError: '',
         authorError: '',
     }
     const [state, setstate] = useState(initialState)
     const validation = () => {
         let nameError = ''
         let authorError = ''
-        if (!titile.value) nameError = 'Name canot be blank'
         if (!author.value) authorError = 'Author canot be blank'
         if (authorError || nameError) {
             setstate({ authorError, nameError })
@@ -34,12 +31,11 @@ export const Form = ({ onSubmit }) => {
             <form
                 onSubmit={(e) => {
                     e.preventDefault()
-                    onSubmit(titile.value, author.value)
+                    onSubmit(author.value)
                     if (!validation()) {
                         return false
                     } else {
-                        Api.post(`books`, {
-                            bookname: titile.value,
+                        Api.post(`author`, {
                             author: author.value,
                         }).then((res) => {
                             console.log(res)
@@ -47,16 +43,9 @@ export const Form = ({ onSubmit }) => {
                         })
                         setstate(initialState)
                     }
-                    titile.resetValue()
                     author.resetValue()
                 }}
             >
-                <label>Book Name</label>
-                <input {...titile} />
-                <div style={{ fontSize: 12, color: 'red' }}>
-                    {state.nameError}
-                </div>
-                <br></br>
                 <label>Author</label>
                 <input {...author} />
                 <div style={{ fontSize: 12, color: 'red' }}>

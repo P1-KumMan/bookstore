@@ -3,7 +3,7 @@ import React from 'react'
 import ButtonAppBar from './ui/ButtonAppBar'
 import { Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core'
-import { Form } from './ui/Form'
+import { BookForm } from './ui/BooksForm'
 import Authors from './components/Authors'
 import Books from './components/Books'
 import List from '@material-ui/core/List'
@@ -12,6 +12,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import Drawer from '@material-ui/core/Drawer'
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom'
+import { AuthorForm } from './ui/AuthorForm'
 
 const drawerWidth = 240
 
@@ -89,23 +90,29 @@ const App = () => {
                             alignItems="center"
                             className={classes.books}
                         >
-                            <Grid item>
-                                <Switch>
-                                    <Route path="/" exact component={Books} />
-                                    <Route
-                                        path="/author"
-                                        exact
-                                        component={Authors}
-                                    />
-                                    <Route
-                                        path="/"
-                                        render={() => <div>404</div>}
-                                    />
-                                </Switch>
-                            </Grid>
-                            <Grid item>
-                                <Form onSubmit={() => true}></Form>
-                            </Grid>
+                            <Switch>
+                                <Route path="/" exact>
+                                    <Grid item>
+                                        <Books />
+                                    </Grid>
+                                    <Grid item>
+                                        <BookForm
+                                            onSubmit={() => true}
+                                        ></BookForm>
+                                    </Grid>
+                                </Route>
+                                <Route path="/author" exact>
+                                    <Grid item>
+                                        <Authors />
+                                    </Grid>
+                                    <Grid item>
+                                        <AuthorForm
+                                            onSubmit={() => true}
+                                        ></AuthorForm>
+                                    </Grid>
+                                </Route>
+                                <Route path="/" render={() => <div>404</div>} />
+                            </Switch>
                         </Grid>
                     </div>
                 </div>

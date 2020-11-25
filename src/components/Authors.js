@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Grid, Button } from '@material-ui/core'
+import { Button } from '@material-ui/core'
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever'
 import Api from '../Api'
 import Table from '@material-ui/core/Table'
@@ -45,14 +45,10 @@ const Authors = (props) => {
                         <TableHead>
                             <TableRow>
                                 <TableCell>#</TableCell>
-                                <TableCell align="right">Book Name</TableCell>
                                 <TableCell align="right">Author</TableCell>
-                                <TableCell align="right">
-                                    Carbs&nbsp;(g)
-                                </TableCell>
-                                <TableCell align="right">
-                                    Protein&nbsp;(g)
-                                </TableCell>
+                                <TableCell align="right">No of Books</TableCell>
+                                <TableCell align="right"></TableCell>
+                                <TableCell align="right"></TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -77,17 +73,17 @@ const Authors = (props) => {
                                         >
                                             <DeleteForeverIcon />
                                         </Button>
-                                        {/* <Button
+                                        <Button
                                             variant="contained"
                                             color="primary"
                                             size="large"
                                             className={classes.button}
                                             onClick={() =>
-                                                handledelete(book._id)
+                                                handledelete(author._id)
                                             }
                                         >
                                             <DeleteForeverIcon />
-                                        </Button> */}
+                                        </Button>
                                     </TableCell>
                                     <TableCell align="right"></TableCell>
                                 </TableRow>
