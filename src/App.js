@@ -13,6 +13,9 @@ import ListItemText from '@material-ui/core/ListItemText'
 import Drawer from '@material-ui/core/Drawer'
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom'
 import { AuthorForm } from './ui/AuthorForm'
+import Modal from '@material-ui/core/Modal'
+import Backdrop from '@material-ui/core/Backdrop'
+import Fade from '@material-ui/core/Fade'
 
 const drawerWidth = 240
 

@@ -10,8 +10,11 @@ import TableContainer from '@material-ui/core/TableContainer'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
+import Modal from '@material-ui/core/Modal'
+import Backdrop from '@material-ui/core/Backdrop'
+import Fade from '@material-ui/core/Fade'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     books: {
         alignItems: 'center',
         justifyContent: 'center',
@@ -19,19 +22,49 @@ const useStyles = makeStyles({
     table: {
         minWidth: 650,
     },
-})
+    modal: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    paper: {
+        backgroundColor: theme.palette.background.paper,
+        border: '2px solid #000',
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing(2, 4, 3),
+    },
+}))
 
 const Authors = (props) => {
     const classes = useStyles()
+    const [open, setOpen] = React.useState(false)
+
+    const handleOpen = () => {
+        setOpen(true)
+    }
+
+    const handleClose = () => {
+        setOpen(false)
+    }
     const [loaded, setload] = useState({ load: true })
     const [state, setstate] = useState([])
-    useEffect(() => {
-        Api.get('author').then((res) => {
-            console.log(res)
-            setload({ load: false })
-            setstate(res.data)
-        })
-    }, [state])
+    const [count, setcount] = useState([])
+    useEffect(
+        () => {
+            Api.get('author').then((res) => {
+                console.log(res)
+                setload({ load: false })
+                setstate(res.data)
+            })
+            Api.get('/books/count').then((abc) => {
+                console.log(abc)
+                setcount(abc.data)
+            })
+        },
+        [state],
+        [count]
+    )
+    console.log(state)
     const handledelete = (id) => {
         Api.delete(`author/${id}`).then((res) => {
             console.log(res)
@@ -60,7 +93,9 @@ const Authors = (props) => {
                                     <TableCell align="right">
                                         {author.author}
                                     </TableCell>
-                                    <TableCell align="right">000</TableCell>
+                                    <TableCell align="right">
+                                        {count[author.author]}
+                                    </TableCell>
                                     <TableCell align="right">
                                         <Button
                                             variant="contained"
@@ -96,7 +131,12 @@ const Authors = (props) => {
             return <div>Loading...</div>
         }
     }
-    return <Booktable></Booktable>
+    return (
+        <div>
+            909
+            <Booktable></Booktable>
+        </div>
+    )
 }
 
 export default Authors
