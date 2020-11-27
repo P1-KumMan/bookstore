@@ -14,7 +14,7 @@ import Modal from '@material-ui/core/Modal'
 import Backdrop from '@material-ui/core/Backdrop'
 import Fade from '@material-ui/core/Fade'
 import EditIcon from '@material-ui/icons/Edit'
-import { Grid } from '@material-ui/core'
+// import { Grid } from '@material-ui/core'
 import { AuthorForm } from '../ui/AuthorForm'
 
 const useStyles = makeStyles((theme) => ({
@@ -52,9 +52,9 @@ const Authors = (props) => {
             setcount(res.data)
         })
     }
-    const handleUpdate = (id) => {
-        Api.patch(`author/${id}`).then((res) => {})
-    }
+    // const handleUpdate = (id) => {
+    //     Api.patch(`author/${id}`).then((res) => {})
+    // }
 
     const handledelete = (id) => {
         Api.delete(`author/${id}`).then((res) => {
