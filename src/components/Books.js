@@ -10,8 +10,14 @@ import TableContainer from '@material-ui/core/TableContainer'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
+import EditIcon from '@material-ui/icons/Edit'
+// import { Grid } from '@material-ui/core'
+import { BookForm } from '../ui/BooksForm'
+import Modal from '@material-ui/core/Modal'
+import Backdrop from '@material-ui/core/Backdrop'
+import Fade from '@material-ui/core/Fade'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     books: {
         alignItems: 'center',
         justifyContent: 'center',
@@ -19,24 +25,54 @@ const useStyles = makeStyles({
     table: {
         minWidth: 650,
     },
-})
+    modal: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    paper: {
+        backgroundColor: theme.palette.background.paper,
+        border: '2px solid #000',
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing(2, 4, 3),
+    },
+}))
 
 const Books = (props) => {
     const classes = useStyles()
     const [loaded, setload] = useState({ load: true })
     const [state, setstate] = useState([])
+    const [open, setOpen] = useState(false)
+    const apicall = () => {
+        Api.get('books').then((res) => {
+            console.log(res)
+            setstate(res.data)
+        })
+    }
+    // const handleUpdate = (id) => {
+    //     Api.patch(`author/${id}`).then((res) => {})
+    // }
+    const handleOpen = () => {
+        setOpen(true)
+    }
+
+    const handleClose = () => {
+        setOpen(false)
+    }
+    const handledelete = (id) => {
+        Api.delete(`books/${id}`).then((res) => {
+            console.log(res)
+            apicall()
+        })
+    }
     useEffect(() => {
         Api.get('books').then((res) => {
             console.log(res)
             setload({ load: false })
             setstate(res.data)
         })
-    }, [state])
-    const handledelete = (id) => {
-        Api.delete(`books/${id}`).then((res) => {
-            console.log(res)
-        })
-    }
+    }, [])
+
     const Booktable = () => {
         if (!loaded.load) {
             return (
@@ -47,12 +83,8 @@ const Books = (props) => {
                                 <TableCell>#</TableCell>
                                 <TableCell align="right">Book Name</TableCell>
                                 <TableCell align="right">Author</TableCell>
-                                <TableCell align="right">
-                                    Carbs&nbsp;(g)
-                                </TableCell>
-                                <TableCell align="right">
-                                    Protein&nbsp;(g)
-                                </TableCell>
+                                <TableCell align="right"></TableCell>
+                                <TableCell align="right"></TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -77,21 +109,49 @@ const Books = (props) => {
                                                 handledelete(book._id)
                                             }
                                         >
-                                            <DeleteForeverIcon />
+                                            <EditIcon />
                                         </Button>
                                         <Button
                                             variant="contained"
                                             color="primary"
                                             size="large"
                                             className={classes.button}
-                                            onClick={() =>
-                                                handledelete(book._id)
-                                            }
+                                            onClick={handleOpen}
                                         >
                                             <DeleteForeverIcon />
                                         </Button>
                                     </TableCell>
                                     <TableCell align="right"></TableCell>
+                                    <Modal
+                                        aria-labelledby="transition-modal-title"
+                                        aria-describedby="transition-modal-description"
+                                        className={classes.modal}
+                                        open={open}
+                                        onClose={handleClose}
+                                        closeAfterTransition
+                                        BackdropComponent={Backdrop}
+                                        BackdropProps={{
+                                            timeout: 500,
+                                        }}
+                                    >
+                                        <Fade in={open}>
+                                            <div className={classes.paper}>
+                                                <h2 id="transition-modal-title">
+                                                    Are you sure?
+                                                </h2>
+                                                <button
+                                                    onClick={() =>
+                                                        handledelete(book._id)
+                                                    }
+                                                >
+                                                    Yes
+                                                </button>
+                                                <button onClick={handleClose}>
+                                                    No
+                                                </button>
+                                            </div>
+                                        </Fade>
+                                    </Modal>
                                 </TableRow>
                             ))}
                         </TableBody>
@@ -102,7 +162,12 @@ const Books = (props) => {
             return <div>Loading...</div>
         }
     }
-    return <Booktable></Booktable>
+    return (
+        <div>
+            <Booktable></Booktable>
+            <BookForm onSubmit={() => true} apicall={apicall}></BookForm>
+        </div>
+    )
 }
 
 export default Books

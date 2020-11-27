@@ -10,13 +10,15 @@ const useInputValue = (initialValue) => {
     }
 }
 
-export const BookForm = ({ onSubmit }) => {
+export const BookForm = ({ apicall, onSubmit }) => {
     const titile = useInputValue('')
     const author = useInputValue('')
+
     const initialState = {
         nameError: '',
         authorError: '',
     }
+
     const [state, setstate] = useState(initialState)
     const validation = () => {
         let nameError = ''
@@ -44,6 +46,7 @@ export const BookForm = ({ onSubmit }) => {
                         }).then((res) => {
                             console.log(res)
                             console.log(res.data)
+                            apicall()
                         })
                         setstate(initialState)
                     }

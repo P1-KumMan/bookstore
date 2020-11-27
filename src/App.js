@@ -98,20 +98,10 @@ const App = () => {
                                     <Grid item>
                                         <Books />
                                     </Grid>
-                                    <Grid item>
-                                        <BookForm
-                                            onSubmit={() => true}
-                                        ></BookForm>
-                                    </Grid>
                                 </Route>
                                 <Route path="/author" exact>
                                     <Grid item>
                                         <Authors />
-                                    </Grid>
-                                    <Grid item>
-                                        <AuthorForm
-                                            onSubmit={() => true}
-                                        ></AuthorForm>
                                     </Grid>
                                 </Route>
                                 <Route path="/" render={() => <div>404</div>} />

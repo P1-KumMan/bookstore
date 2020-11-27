@@ -13,6 +13,9 @@ import Paper from '@material-ui/core/Paper'
 import Modal from '@material-ui/core/Modal'
 import Backdrop from '@material-ui/core/Backdrop'
 import Fade from '@material-ui/core/Fade'
+import EditIcon from '@material-ui/icons/Edit'
+import { Grid } from '@material-ui/core'
+import { AuthorForm } from '../ui/AuthorForm'
 
 const useStyles = makeStyles((theme) => ({
     books: {
@@ -37,8 +40,29 @@ const useStyles = makeStyles((theme) => ({
 
 const Authors = (props) => {
     const classes = useStyles()
-    const [open, setOpen] = React.useState(false)
+    const [open, setOpen] = useState(false)
+    const apicall = () => {
+        Api.get('author').then((res) => {
+            console.log(res)
+            setload({ load: false })
+            setstate(res.data)
+        })
+        Api.get('/books/count').then((res) => {
+            console.log(res)
+            setcount(res.data)
+        })
+    }
+    const handleUpdate = (id) => {
+        Api.patch(`author/${id}`).then((res) => {})
+    }
 
+    const handledelete = (id) => {
+        Api.delete(`author/${id}`).then((res) => {
+            console.log(res)
+            apicall()
+            handleClose()
+        })
+    }
     const handleOpen = () => {
         setOpen(true)
     }
@@ -46,86 +70,117 @@ const Authors = (props) => {
     const handleClose = () => {
         setOpen(false)
     }
+    const hm = () => {
+        return '0'
+    }
     const [loaded, setload] = useState({ load: true })
     const [state, setstate] = useState([])
     const [count, setcount] = useState([])
-    useEffect(
-        () => {
-            Api.get('author').then((res) => {
-                console.log(res)
-                setload({ load: false })
-                setstate(res.data)
-            })
-            Api.get('/books/count').then((abc) => {
-                console.log(abc)
-                setcount(abc.data)
-            })
-        },
-        [state],
-        [count]
-    )
-    console.log(state)
-    const handledelete = (id) => {
-        Api.delete(`author/${id}`).then((res) => {
+    useEffect(() => {
+        Api.get('author').then((res) => {
             console.log(res)
+            setload({ load: false })
+            setstate(res.data)
         })
-    }
-    const Booktable = () => {
+        Api.get('/books/count').then((res) => {
+            console.log(res)
+            setcount(res.data)
+        })
+    }, [])
+    console.log(state)
+    const Authortable = () => {
         if (!loaded.load) {
             return (
-                <TableContainer component={Paper}>
-                    <Table className={classes.table} aria-label="simple table">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>#</TableCell>
-                                <TableCell align="right">Author</TableCell>
-                                <TableCell align="right">No of Books</TableCell>
-                                <TableCell align="right"></TableCell>
-                                <TableCell align="right"></TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {state.map((author, i) => (
-                                <TableRow key={author._id}>
-                                    <TableCell component="th" scope="row">
-                                        {i + 1}
-                                    </TableCell>
+                <div>
+                    <TableContainer component={Paper}>
+                        <Table
+                            className={classes.table}
+                            aria-label="simple table"
+                        >
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>#</TableCell>
+                                    <TableCell align="right">Author</TableCell>
                                     <TableCell align="right">
-                                        {author.author}
-                                    </TableCell>
-                                    <TableCell align="right">
-                                        {count[author.author]}
-                                    </TableCell>
-                                    <TableCell align="right">
-                                        <Button
-                                            variant="contained"
-                                            color="primary"
-                                            size="large"
-                                            className={classes.button}
-                                            onClick={() =>
-                                                handledelete(author._id)
-                                            }
-                                        >
-                                            <DeleteForeverIcon />
-                                        </Button>
-                                        <Button
-                                            variant="contained"
-                                            color="primary"
-                                            size="large"
-                                            className={classes.button}
-                                            onClick={() =>
-                                                handledelete(author._id)
-                                            }
-                                        >
-                                            <DeleteForeverIcon />
-                                        </Button>
+                                        No of Books
                                     </TableCell>
                                     <TableCell align="right"></TableCell>
+                                    <TableCell align="right"></TableCell>
                                 </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                            </TableHead>
+                            <TableBody>
+                                {state.map((author, i) => (
+                                    <TableRow key={author._id}>
+                                        <TableCell component="th" scope="row">
+                                            {i}
+                                        </TableCell>
+                                        <TableCell align="right">
+                                            {author.author}
+                                        </TableCell>
+                                        <TableCell align="right">
+                                            {count[author.author] || hm()}
+                                        </TableCell>
+                                        <TableCell align="right">
+                                            <Button
+                                                variant="contained"
+                                                color="primary"
+                                                size="large"
+                                                className={classes.button}
+                                                onClick={() => true}
+                                            >
+                                                <EditIcon />
+                                            </Button>
+                                            <Button
+                                                variant="contained"
+                                                color="primary"
+                                                size="large"
+                                                className={classes.button}
+                                                onClick={handleOpen}
+                                            >
+                                                <DeleteForeverIcon />
+                                            </Button>
+                                        </TableCell>
+                                        <TableCell align="right"></TableCell>
+                                        <Modal
+                                            aria-labelledby="transition-modal-title"
+                                            aria-describedby="transition-modal-description"
+                                            className={classes.modal}
+                                            open={open}
+                                            onClose={handleClose}
+                                            closeAfterTransition
+                                            BackdropComponent={Backdrop}
+                                            BackdropProps={{
+                                                timeout: 500,
+                                            }}
+                                        >
+                                            <Fade in={open}>
+                                                <div className={classes.paper}>
+                                                    <h2 id="transition-modal-title">
+                                                        Are you sure?
+                                                    </h2>
+                                                    <button
+                                                        onClick={() =>
+                                                            handledelete(
+                                                                author._id
+                                                            )
+                                                        }
+                                                    >
+                                                        Yes
+                                                    </button>
+                                                    <button
+                                                        onClick={handleClose}
+                                                    >
+                                                        No
+                                                    </button>
+                                                </div>
+                                            </Fade>
+                                        </Modal>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </div>
             )
         } else {
             return <div>Loading...</div>
@@ -133,8 +188,8 @@ const Authors = (props) => {
     }
     return (
         <div>
-            909
-            <Booktable></Booktable>
+            <Authortable></Authortable>
+            <AuthorForm onSubmit={() => true}></AuthorForm>
         </div>
     )
 }
