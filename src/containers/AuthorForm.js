@@ -10,7 +10,7 @@ const useInputValue = (initialValue) => {
     }
 }
 
-export const AuthorForm = ({ onSubmit }) => {
+export const AuthorForm = ({ onSubmit, closemodal, apicall }) => {
     const author = useInputValue('')
     const initialState = {
         authorError: '',
@@ -40,6 +40,8 @@ export const AuthorForm = ({ onSubmit }) => {
                         }).then((res) => {
                             console.log(res)
                             console.log(res.data)
+                            apicall()
+                            closemodal()
                         })
                         setstate(initialState)
                     }

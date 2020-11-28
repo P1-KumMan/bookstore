@@ -1,6 +1,6 @@
 import './App.css'
 import React from 'react'
-import ButtonAppBar from './ui/ButtonAppBar'
+import ButtonAppBar from './containers/ButtonAppBar'
 import { Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core'
 

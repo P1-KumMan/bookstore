@@ -1,4 +1,4 @@
-import { React, useState } from 'react'
+import { React, useState, useEffect } from 'react'
 import Api from '../Api'
 
 const useInputValue = (initialValue) => {
@@ -10,21 +10,30 @@ const useInputValue = (initialValue) => {
     }
 }
 
-export const BookForm = ({ apicall, onSubmit }) => {
+export const BookForm = ({ apicall, onSubmit, closemodal }) => {
     const titile = useInputValue('')
+    const [Authorslt, setAuthorslt] = useState([])
     const author = useInputValue('')
-
     const initialState = {
         nameError: '',
         authorError: '',
     }
-
+    useEffect(() => {
+        Api.get('author').then((res) => {
+            console.log(res)
+            setAuthorslt(res.data)
+        })
+    }, [])
     const [state, setstate] = useState(initialState)
     const validation = () => {
         let nameError = ''
         let authorError = ''
-        if (!titile.value) nameError = 'Name canot be blank'
-        if (!author.value) authorError = 'Author canot be blank'
+        if (!titile.value) {
+            nameError = 'Name canot be blank'
+        }
+        if (!author.value) {
+            authorError = 'Author canot be blank'
+        }
         if (authorError || nameError) {
             setstate({ authorError, nameError })
             return false
@@ -47,6 +56,7 @@ export const BookForm = ({ apicall, onSubmit }) => {
                             console.log(res)
                             console.log(res.data)
                             apicall()
+                            closemodal()
                         })
                         setstate(initialState)
                     }
@@ -61,10 +71,11 @@ export const BookForm = ({ apicall, onSubmit }) => {
                 </div>
                 <br></br>
                 <label>Author</label>
-                <input {...author} />
-                <div style={{ fontSize: 12, color: 'red' }}>
-                    {state.authorError}
-                </div>
+                <select {...author}>
+                    {Authorslt.map((author) => (
+                        <option key={author._id}>{author.author}</option>
+                    ))}
+                </select>
                 <br></br>
                 <button type="submit">submit</button>
             </form>

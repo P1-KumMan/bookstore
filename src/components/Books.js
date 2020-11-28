@@ -12,10 +12,11 @@ import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import EditIcon from '@material-ui/icons/Edit'
 // import { Grid } from '@material-ui/core'
-import { BookForm } from '../ui/BooksForm'
+import { BookForm } from '../containers/BooksForm'
 import Modal from '@material-ui/core/Modal'
 import Backdrop from '@material-ui/core/Backdrop'
 import Fade from '@material-ui/core/Fade'
+import { UpdateBookForm } from '../containers/UpdateBookForm'
 
 const useStyles = makeStyles((theme) => ({
     books: {
@@ -40,9 +41,10 @@ const useStyles = makeStyles((theme) => ({
 
 const Books = (props) => {
     const classes = useStyles()
-    const [loaded, setload] = useState({ load: true })
+    const [loaded, setload] = useState(true)
     const [state, setstate] = useState([])
     const [open, setOpen] = useState(false)
+    const [Addmodal, setAddmodal] = useState(false)
     const apicall = () => {
         Api.get('books').then((res) => {
             console.log(res)
@@ -52,6 +54,12 @@ const Books = (props) => {
     // const handleUpdate = (id) => {
     //     Api.patch(`author/${id}`).then((res) => {})
     // }
+    const addbooksOpen = () => {
+        setAddmodal(true)
+    }
+    const addbookClose = () => {
+        setAddmodal(false)
+    }
     const handleOpen = () => {
         setOpen(true)
     }
@@ -63,17 +71,18 @@ const Books = (props) => {
         Api.delete(`books/${id}`).then((res) => {
             console.log(res)
             apicall()
+            handleClose()
         })
     }
     useEffect(() => {
         Api.get('books').then((res) => {
             console.log(res)
-            setload({ load: false })
+            setload(false)
             setstate(res.data)
         })
     }, [])
 
-    const Booktable = () => {
+    const Booktable = (books) => {
         if (!loaded.load) {
             return (
                 <TableContainer component={Paper}>
@@ -105,9 +114,7 @@ const Books = (props) => {
                                             color="primary"
                                             size="large"
                                             className={classes.button}
-                                            onClick={() =>
-                                                handledelete(book._id)
-                                            }
+                                            onClick={addbooksOpen}
                                         >
                                             <EditIcon />
                                         </Button>
@@ -146,9 +153,34 @@ const Books = (props) => {
                                                 >
                                                     Yes
                                                 </button>
-                                                <button onClick={handleClose}>
+                                                <button
+                                                    onClick={() => handleClose}
+                                                >
                                                     No
                                                 </button>
+                                            </div>
+                                        </Fade>
+                                    </Modal>
+                                    <Modal
+                                        aria-labelledby="transition-modal-title"
+                                        aria-describedby="transition-modal-description"
+                                        className={classes.modal}
+                                        open={Addmodal}
+                                        onClose={addbookClose}
+                                        closeAfterTransition
+                                        BackdropComponent={Backdrop}
+                                        BackdropProps={{
+                                            timeout: 500,
+                                        }}
+                                    >
+                                        <Fade in={Addmodal}>
+                                            <div className={classes.paper}>
+                                                <UpdateBookForm
+                                                    onSubmit={() => true}
+                                                    apicall={apicall}
+                                                    closemodal={addbookClose}
+                                                    book_id={book._id}
+                                                ></UpdateBookForm>
                                             </div>
                                         </Fade>
                                     </Modal>
@@ -162,10 +194,39 @@ const Books = (props) => {
             return <div>Loading...</div>
         }
     }
+    const AddBooksForm = () => {
+        return (
+            <Modal
+                aria-labelledby="transition-modal-title"
+                aria-describedby="transition-modal-description"
+                className={classes.modal}
+                open={Addmodal}
+                onClose={addbookClose}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                    timeout: 500,
+                }}
+            >
+                <Fade in={Addmodal}>
+                    <div className={classes.paper}>
+                        <BookForm
+                            onSubmit={() => true}
+                            apicall={apicall}
+                            closemodal={addbookClose}
+                        ></BookForm>
+                    </div>
+                </Fade>
+            </Modal>
+        )
+    }
     return (
         <div>
+            <Button variant="contained" color="primary" onClick={addbooksOpen}>
+                Add Books
+            </Button>
+            <AddBooksForm />
             <Booktable></Booktable>
-            <BookForm onSubmit={() => true} apicall={apicall}></BookForm>
         </div>
     )
 }
