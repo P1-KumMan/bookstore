@@ -17,6 +17,7 @@ import EditIcon from '@material-ui/icons/Edit'
 // import { Grid } from '@material-ui/core'
 import { AuthorForm } from '../containers/AuthorForm'
 import { UpdateAuthorForm } from '../containers/UpdateAuthorForm'
+import AuthorTable from '../containers/AuthorTable'
 
 const useStyles = makeStyles((theme) => ({
     books: {
@@ -43,6 +44,8 @@ const Authors = (props) => {
     const classes = useStyles()
     const [open, setOpen] = useState(false)
     const [Addmodal, setAddmodal] = useState(false)
+    const [Upmodal, setUpmodal] = useState(false)
+
     const apicall = () => {
         Api.get('author').then((res) => {
             console.log(res)
@@ -54,9 +57,13 @@ const Authors = (props) => {
             setcount(res.data)
         })
     }
-    // const handleUpdate = (id) => {
-    //     Api.patch(`author/${id}`).then((res) => {})
-    // }
+
+    const upauthorOpen = () => {
+        setUpmodal(true)
+    }
+    const upauthorClose = () => {
+        setUpmodal(false)
+    }
     const addauthorOpen = () => {
         setAddmodal(true)
     }
@@ -77,8 +84,9 @@ const Authors = (props) => {
     const handleClose = () => {
         setOpen(false)
     }
-    const hm = () => {
-        return '0'
+    const handleUpdate = (authordata) => {
+        upauthorOpen()
+        return authordata
     }
     const [loaded, setload] = useState({ load: true })
     const [state, setstate] = useState([])
@@ -95,136 +103,33 @@ const Authors = (props) => {
         })
     }, [])
     console.log(state)
-    const Authortable = () => {
-        if (!loaded.load) {
-            return (
-                <div>
-                    <TableContainer component={Paper}>
-                        <Table
-                            className={classes.table}
-                            aria-label="simple table"
-                        >
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>#</TableCell>
-                                    <TableCell align="right">Author</TableCell>
-                                    <TableCell align="right">
-                                        No of Books
-                                    </TableCell>
-                                    <TableCell align="right"></TableCell>
-                                    <TableCell align="right"></TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {state.map((author, i) => (
-                                    <TableRow key={author._id}>
-                                        <TableCell component="th" scope="row">
-                                            {i}
-                                        </TableCell>
-                                        <TableCell align="right">
-                                            {author.author}
-                                        </TableCell>
-                                        <TableCell align="right">
-                                            {count[author.author] || hm()}
-                                        </TableCell>
-                                        <TableCell align="right">
-                                            <Modal
-                                                aria-labelledby="transition-modal-title"
-                                                aria-describedby="transition-modal-description"
-                                                className={classes.modal}
-                                                open={Addmodal}
-                                                onClose={addauthorClose}
-                                                closeAfterTransition
-                                                BackdropComponent={Backdrop}
-                                                BackdropProps={{
-                                                    timeout: 500,
-                                                }}
-                                            >
-                                                <Fade in={Addmodal}>
-                                                    <div
-                                                        className={
-                                                            classes.paper
-                                                        }
-                                                    >
-                                                        <UpdateAuthorForm
-                                                            onSubmit={() =>
-                                                                true
-                                                            }
-                                                            apicall={apicall}
-                                                            closemodal={
-                                                                addauthorClose
-                                                            }
-                                                            author_id={
-                                                                author._id
-                                                            }
-                                                        ></UpdateAuthorForm>
-                                                    </div>
-                                                </Fade>
-                                            </Modal>
-                                            <Button
-                                                variant="contained"
-                                                color="primary"
-                                                size="large"
-                                                className={classes.button}
-                                                onClick={addauthorOpen}
-                                            >
-                                                <EditIcon />
-                                            </Button>
-                                            <Button
-                                                variant="contained"
-                                                color="primary"
-                                                size="large"
-                                                className={classes.button}
-                                                onClick={handleOpen}
-                                            >
-                                                <DeleteForeverIcon />
-                                            </Button>
-                                        </TableCell>
-                                        <TableCell align="right"></TableCell>
-                                        <Modal
-                                            aria-labelledby="transition-modal-title"
-                                            aria-describedby="transition-modal-description"
-                                            className={classes.modal}
-                                            open={open}
-                                            onClose={handleClose}
-                                            closeAfterTransition
-                                            BackdropComponent={Backdrop}
-                                            BackdropProps={{
-                                                timeout: 500,
-                                            }}
-                                        >
-                                            <Fade in={open}>
-                                                <div className={classes.paper}>
-                                                    <h2 id="transition-modal-title">
-                                                        Are you sure?
-                                                    </h2>
-                                                    <button
-                                                        onClick={() =>
-                                                            handledelete(
-                                                                author._id
-                                                            )
-                                                        }
-                                                    >
-                                                        Yes
-                                                    </button>
-                                                    <button
-                                                        onClick={handleClose}
-                                                    >
-                                                        No
-                                                    </button>
-                                                </div>
-                                            </Fade>
-                                        </Modal>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                </div>
-            )
-        } else {
-            return <div>Loading...</div>
-        }
+
+    const UpdateModal = () => {
+        return (
+            <Modal
+                aria-labelledby="transition-modal-title"
+                aria-describedby="transition-modal-description"
+                className={classes.modal}
+                open={Upmodal}
+                onClose={upauthorClose}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                    timeout: 500,
+                }}
+            >
+                <Fade in={Upmodal}>
+                    <div className={classes.paper}>
+                        <UpdateAuthorForm
+                            onSubmit={() => true}
+                            apicall={apicall}
+                            closemodal={upauthorClose}
+                            author={handleUpdate}
+                        ></UpdateAuthorForm>
+                    </div>
+                </Fade>
+            </Modal>
+        )
     }
     const AddAuthorForm = () => {
         return (
@@ -257,6 +162,7 @@ const Authors = (props) => {
             <Button variant="contained" color="primary" onClick={addauthorOpen}>
                 Add Author
             </Button>
+            <UpdateModal></UpdateModal>
             <AddAuthorForm></AddAuthorForm>
             <Authortable></Authortable>
         </div>

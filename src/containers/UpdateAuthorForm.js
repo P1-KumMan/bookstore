@@ -14,7 +14,7 @@ export const UpdateAuthorForm = ({
     onSubmit,
     closemodal,
     apicall,
-    author_id,
+    authordata,
 }) => {
     const author = useInputValue('')
     const initialState = {
@@ -35,13 +35,13 @@ export const UpdateAuthorForm = ({
         <div>
             <form
                 onSubmit={(e) => {
-                    console.log(author_id)
+                    console.log(authordata._id)
                     e.preventDefault()
                     onSubmit(author.value)
                     if (!validation()) {
                         return false
                     } else {
-                        Api.patch(`author/${author_id}`, {
+                        Api.patch(`author/${authordata._id}`, {
                             author: author.value,
                         }).then((res) => {
                             console.log(res)
@@ -55,7 +55,7 @@ export const UpdateAuthorForm = ({
                 }}
             >
                 <label>Author</label>
-                <input {...author} />
+                <input {...author}></input>
                 <div style={{ fontSize: 12, color: 'red' }}>
                     {state.authorError}
                 </div>
