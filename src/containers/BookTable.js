@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
-import Table from '@material-ui/core/Table'
-import TableBody from '@material-ui/core/TableBody'
-import { makeStyles } from '@material-ui/core'
 import TableCell from '@material-ui/core/TableCell'
 import TableContainer from '@material-ui/core/TableContainer'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import EditIcon from '@material-ui/icons/Edit'
-import { Button, DeleteForeverIcon } from '@material-ui/core'
-import Api from '../Api'
+import Table from '@material-ui/core/Table'
+import TableBody from '@material-ui/core/TableBody'
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever'
+import { Button } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
     books: {
@@ -32,41 +32,28 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-export const AuthorTable = ({
-    loaded,
-    authors,
-    count,
-    apicall,
-    handleClose,
-}) => {
+export const BookTable = ({ apicall, books, isLoading }) => {
     const classes = useStyles()
-    const [Addmodal, setAddmodal] = useState(false)
-    const [Upmodal, setUpmodal] = useState(false)
+    const [deleteModal, setdeleteModal] = useState(false)
+    const [updateModal, setupdateModal] = useState(false)
 
-    const upauthorOpen = () => {
-        setUpmodal(true)
+    const deleteOpen = () => {
+        setdeleteModal(true)
     }
-    const upauthorClose = () => {
-        setUpmodal(false)
+
+    const deleteClose = () => {
+        setdeleteModal(false)
     }
-    const addauthorOpen = () => {
-        setAddmodal(true)
+
+    const updateOpen = () => {
+        setupdateModal(true)
     }
-    const addauthorClose = () => {
-        setAddmodal(false)
+
+    const updateClose = () => {
+        setupdateModal(false)
     }
-    const handledelete = (id) => {
-        Api.delete(`author/${id}`).then((res) => {
-            console.log(res)
-            apicall()
-            handleClose()
-        })
-    }
-    const handleUpdate = (authordata) => {
-        upauthorOpen()
-        return authordata
-    }
-    if (!loaded) {
+
+    if (!isLoading) {
         return (
             <div>
                 <TableContainer component={Paper}>
@@ -74,23 +61,23 @@ export const AuthorTable = ({
                         <TableHead>
                             <TableRow>
                                 <TableCell>#</TableCell>
+                                <TableCell align="right">Book Name</TableCell>
                                 <TableCell align="right">Author</TableCell>
-                                <TableCell align="right">No of Books</TableCell>
                                 <TableCell align="right"></TableCell>
                                 <TableCell align="right"></TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {authors.map((author, i) => (
-                                <TableRow key={author._id}>
+                            {books.map((book, i) => (
+                                <TableRow key={book._id}>
                                     <TableCell component="th" scope="row">
-                                        {i}
+                                        {i + 1}
                                     </TableCell>
                                     <TableCell align="right">
-                                        {author.author}
+                                        {book.bookname}
                                     </TableCell>
                                     <TableCell align="right">
-                                        {count[author.author] || '0'}
+                                        {book.author}
                                     </TableCell>
                                     <TableCell align="right">
                                         <Button
@@ -98,7 +85,10 @@ export const AuthorTable = ({
                                             color="primary"
                                             size="large"
                                             className={classes.button}
-                                            onClick={() => handleUpdate(author)}
+                                            onClick={updateOpen}
+                                            updateModal={updateModal}
+                                            updateClose={updateClose}
+                                            apicall={apicall}
                                         >
                                             <EditIcon />
                                         </Button>
@@ -107,7 +97,11 @@ export const AuthorTable = ({
                                             color="primary"
                                             size="large"
                                             className={classes.button}
-                                            onClick={addauthorOpen}
+                                            onClick={deleteOpen}
+                                            deleteModal={deleteModal}
+                                            deleteClose={deleteClose}
+                                            bookid={book._id}
+                                            apicall={apicall}
                                         >
                                             <DeleteForeverIcon />
                                         </Button>
