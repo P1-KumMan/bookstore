@@ -59,6 +59,11 @@ export const AddAuthorForm = ({ onSubmit, closemodal, apicall }) => {
         </div>
     )
 }
+
+// const handleUpdate = (authordata) => {
+//     upauthorOpen()
+//     return authordata
+// }
 export const UpdateAuthorForm = ({
     onSubmit,
     closemodal,

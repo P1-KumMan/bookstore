@@ -8,8 +8,8 @@ import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import EditIcon from '@material-ui/icons/Edit'
-import { Button, DeleteForeverIcon } from '@material-ui/core'
-import Api from '../Api'
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever'
+import { Button } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
     books: {
@@ -32,39 +32,22 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-export const AuthorTable = ({
-    loaded,
-    authors,
-    count,
-    apicall,
-    handleClose,
-}) => {
+export const AuthorTable = ({ loaded, authors, count, apicall, authorid }) => {
     const classes = useStyles()
-    const [Addmodal, setAddmodal] = useState(false)
+    const [Delmodal, setDelmodal] = useState(false)
     const [Upmodal, setUpmodal] = useState(false)
 
-    const upauthorOpen = () => {
+    const updateOpen = () => {
         setUpmodal(true)
     }
-    const upauthorClose = () => {
+    const updateClose = () => {
         setUpmodal(false)
     }
-    const addauthorOpen = () => {
-        setAddmodal(true)
+    const deleteOpen = () => {
+        setDelmodal(true)
     }
-    const addauthorClose = () => {
-        setAddmodal(false)
-    }
-    const handledelete = (id) => {
-        Api.delete(`author/${id}`).then((res) => {
-            console.log(res)
-            apicall()
-            handleClose()
-        })
-    }
-    const handleUpdate = (authordata) => {
-        upauthorOpen()
-        return authordata
+    const deleteClose = () => {
+        setDelmodal(false)
     }
     if (!loaded) {
         return (
@@ -98,7 +81,11 @@ export const AuthorTable = ({
                                             color="primary"
                                             size="large"
                                             className={classes.button}
-                                            onClick={() => handleUpdate(author)}
+                                            onClick={updateOpen}
+                                            Upmodal={Upmodal}
+                                            updateClose={updateClose}
+                                            refresh={apicall}
+                                            authorid={authorid}
                                         >
                                             <EditIcon />
                                         </Button>
@@ -107,7 +94,11 @@ export const AuthorTable = ({
                                             color="primary"
                                             size="large"
                                             className={classes.button}
-                                            onClick={addauthorOpen}
+                                            onClick={deleteOpen}
+                                            Delmodal={Delmodal}
+                                            deleteClose={deleteClose}
+                                            refresh={apicall}
+                                            authorid={authorid}
                                         >
                                             <DeleteForeverIcon />
                                         </Button>

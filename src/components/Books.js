@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Button } from '@material-ui/core'
 import Api from '../Api'
 import { BookTable } from '../containers/BookTable'
-import { AddBooksForm } from '../containers/BookModals'
+import { AddBooksModal } from '../containers/BookModals'
 // import { makeStyles } from '@material-ui/core'
 
 // import { Grid } from '@material-ui/core'
@@ -32,18 +32,18 @@ const Books = () => {
     // const classes = useStyles()
     const [isLoading, setload] = useState(true)
     const [state, setstate] = useState([])
-    const [Addmodal, setAddmodal] = useState(false)
+    const [addmodal, setaddmodal] = useState(false)
     const apicall = () => {
         Api.get('books').then((res) => {
             console.log(res)
             setstate(res.data)
         })
     }
-    const addbooksOpen = () => {
-        setAddmodal(true)
+    const addbooksopen = () => {
+        setaddmodal(true)
     }
-    const addbookClose = () => {
-        setAddmodal(false)
+    const addbookclose = () => {
+        setaddmodal(false)
     }
 
     useEffect(() => {
@@ -56,12 +56,12 @@ const Books = () => {
 
     return (
         <div>
-            <Button variant="contained" color="primary" onClick={addbooksOpen}>
+            <Button variant="contained" color="primary" onClick={addbooksopen}>
                 Add Books
             </Button>
-            <AddBooksForm
-                Addmodal={Addmodal}
-                addbookClose={addbookClose}
+            <AddBooksModal
+                addmodal={addmodal}
+                addbookclose={addbookclose}
                 apicall={apicall}
             />
             <BookTable books={state} apicall={apicall} isLoading={isLoading} />

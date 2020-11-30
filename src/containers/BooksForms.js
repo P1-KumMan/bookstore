@@ -1,20 +1,20 @@
 import { React, useState, useEffect } from 'react'
 import Api from '../Api'
 
-const useInputValue = (initialValue) => {
-    const [value, setValue] = useState(initialValue)
+const useInputvalue = (initialvalue) => {
+    const [value, setvalue] = useState(initialvalue)
     return {
         value,
-        onChange: (e) => setValue(e.target.value),
-        resetValue: () => setValue(''),
+        onChange: (e) => setvalue(e.target.value),
+        resetValue: () => setvalue(''),
     }
 }
 
-export const BookForm = ({ apicall, onSubmit, closemodal }) => {
-    const titile = useInputValue('')
+export const AddBookForm = ({ apicall, closemodal }) => {
+    const titile = useInputvalue('')
     const [Authorslt, setAuthorslt] = useState([])
-    const author = useInputValue('')
-    const initialState = {
+    const author = useInputvalue('')
+    const initialstate = {
         nameError: '',
         authorError: '',
     }
@@ -24,7 +24,7 @@ export const BookForm = ({ apicall, onSubmit, closemodal }) => {
             setAuthorslt(res.data)
         })
     }, [])
-    const [state, setstate] = useState(initialState)
+    const [state, setstate] = useState(initialstate)
     const validation = () => {
         let nameError = ''
         let authorError = ''
@@ -45,7 +45,7 @@ export const BookForm = ({ apicall, onSubmit, closemodal }) => {
             <form
                 onSubmit={(e) => {
                     e.preventDefault()
-                    onSubmit(titile.value, author.value)
+                    // onSubmit(titile.value, author.value)
                     if (!validation()) {
                         return false
                     } else {
@@ -58,10 +58,10 @@ export const BookForm = ({ apicall, onSubmit, closemodal }) => {
                             apicall()
                             closemodal()
                         })
-                        setstate(initialState)
+                        setstate(initialstate)
                     }
-                    titile.resetValue()
-                    author.resetValue()
+                    titile.resetvalue()
+                    author.resetvalue()
                 }}
             >
                 <label>Book Name</label>
@@ -84,9 +84,9 @@ export const BookForm = ({ apicall, onSubmit, closemodal }) => {
 }
 
 export const UpdateBookForm = ({ apicall, onSubmit, closemodal, book_id }) => {
-    const titile = useInputValue('')
+    const titile = useInputvalue('')
     const [Authorslt, setAuthorslt] = useState([])
-    const author = useInputValue('')
+    const author = useInputvalue('')
     const initialState = {
         nameError: '',
         authorError: '',
@@ -133,8 +133,8 @@ export const UpdateBookForm = ({ apicall, onSubmit, closemodal, book_id }) => {
                         })
                         setstate(initialState)
                     }
-                    titile.resetValue()
-                    author.resetValue()
+                    titile.resetvalue()
+                    author.resetvalue()
                 }}
             >
                 <label>Book Name</label>

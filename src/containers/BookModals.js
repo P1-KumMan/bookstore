@@ -1,8 +1,8 @@
 import Modal from '@material-ui/core/Modal'
 import Backdrop from '@material-ui/core/Backdrop'
 import Fade from '@material-ui/core/Fade'
-import { BookForm } from '../containers/BooksForm'
-import { UpdateBookForm } from '../containers/UpdateBookForm'
+import { AddBookForm } from '../containers/BooksForms'
+import { UpdateBookForm } from '../containers/BooksForms'
 import { makeStyles } from '@material-ui/core'
 import Api from '../Api'
 
@@ -20,38 +20,37 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-export const AddBooksForm = ({ Addmodal, addbookClose, apicall }) => {
+export const AddBooksModal = ({ addmodal, addbookclose, apicall }) => {
     const classes = useStyles()
     return (
         <Modal
             aria-labelledby="transition-modal-title"
             aria-describedby="transition-modal-description"
             className={classes.modal}
-            open={Addmodal}
-            onClose={addbookClose}
+            open={addmodal}
+            onClose={addbookclose}
             closeAfterTransition
             BackdropComponent={Backdrop}
             BackdropProps={{
                 timeout: 500,
             }}
         >
-            <Fade in={Addmodal}>
+            <Fade in={addmodal}>
                 <div className={classes.paper}>
-                    <BookForm
-                        onSubmit={() => true}
+                    <AddBookForm
                         apicall={apicall}
-                        closemodal={addbookClose}
-                    ></BookForm>
+                        closemodal={addbookclose}
+                    ></AddBookForm>
                 </div>
             </Fade>
         </Modal>
     )
 }
-export const UpdateBooksForm = ({
-    updateModal,
+export const UpdateBooksModal = ({
+    updatemodal,
     apicall,
-    updateClose,
-    bookid,
+    updateclose,
+    book_id,
 }) => {
     const classes = useStyles()
     return (
@@ -59,38 +58,37 @@ export const UpdateBooksForm = ({
             aria-labelledby="transition-modal-title"
             aria-describedby="transition-modal-description"
             className={classes.modal}
-            open={updateModal}
-            onClose={updateClose}
+            open={updatemodal}
+            onClose={updateclose}
             closeAfterTransition
             BackdropComponent={Backdrop}
             BackdropProps={{
                 timeout: 500,
             }}
         >
-            <Fade in={updateModal}>
+            <Fade in={updatemodal}>
                 <div className={classes.paper}>
                     <UpdateBookForm
-                        onSubmit={() => true}
                         apicall={apicall}
-                        closemodal={updateClose}
-                        book_id={bookid}
+                        closemodal={updateclose}
+                        book_id={book_id}
                     ></UpdateBookForm>
                 </div>
             </Fade>
         </Modal>
     )
 }
-export const handledelete = ({ bookid, apicall, deleteClose }) => {
-    Api.delete(`books/${bookid}`).then((res) => {
+export const handledelete = (book_id, apicall, deleteclose) => {
+    Api.delete(`books/${book_id}`).then((res) => {
         console.log(res)
         apicall()
-        deleteClose()
+        deleteclose()
     })
 }
-export const DeleteBooksForm = ({
-    deleteModal,
-    deleteClose,
-    bookid,
+export const DeleteBooksModal = ({
+    deletemodal,
+    deleteclose,
+    book_id,
     apicall,
 }) => {
     const classes = useStyles()
@@ -99,25 +97,25 @@ export const DeleteBooksForm = ({
             aria-labelledby="transition-modal-title"
             aria-describedby="transition-modal-description"
             className={classes.modal}
-            open={deleteModal}
-            onClose={deleteClose}
+            open={deletemodal}
+            onClose={deleteclose}
             closeAfterTransition
             BackdropComponent={Backdrop}
             BackdropProps={{
                 timeout: 500,
             }}
         >
-            <Fade in={deleteModal}>
+            <Fade in={deletemodal}>
                 <div className={classes.paper}>
                     <h2 id="transition-modal-title">Are you sure?</h2>
                     <button
                         onClick={() =>
-                            handledelete(bookid, apicall, deleteClose)
+                            handledelete(book_id, apicall, deleteclose)
                         }
                     >
                         Yes
                     </button>
-                    <button onClick={() => deleteClose}>No</button>
+                    <button onClick={deleteclose}>No</button>
                 </div>
             </Fade>
         </Modal>

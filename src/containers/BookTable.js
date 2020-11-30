@@ -10,6 +10,7 @@ import TableBody from '@material-ui/core/TableBody'
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever'
 import { Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core'
+import { DeleteBooksModal, UpdateBooksModal } from '../containers/BookModals'
 
 const useStyles = makeStyles((theme) => ({
     books: {
@@ -34,23 +35,33 @@ const useStyles = makeStyles((theme) => ({
 
 export const BookTable = ({ apicall, books, isLoading }) => {
     const classes = useStyles()
-    const [deleteModal, setdeleteModal] = useState(false)
-    const [updateModal, setupdateModal] = useState(false)
+    const [deletemodal, setdeletemodal] = useState(false)
+    const [Bookid, setBookid] = useState('')
+    const [updatemodal, setupdatemodal] = useState(false)
 
-    const deleteOpen = () => {
-        setdeleteModal(true)
+    const deletepass = ({ book_id }) => {
+        setBookid(book_id)
+        deleteOpen()
     }
 
-    const deleteClose = () => {
-        setdeleteModal(false)
+    const updatepass = ({ book_id }) => {
+        setBookid(book_id)
+        updateOpen()
+    }
+    const deleteOpen = () => {
+        setdeletemodal(true)
+    }
+
+    const deleteclose = () => {
+        setdeletemodal(false)
     }
 
     const updateOpen = () => {
-        setupdateModal(true)
+        setupdatemodal(true)
     }
 
-    const updateClose = () => {
-        setupdateModal(false)
+    const updateclose = () => {
+        setupdatemodal(false)
     }
 
     if (!isLoading) {
@@ -85,10 +96,7 @@ export const BookTable = ({ apicall, books, isLoading }) => {
                                             color="primary"
                                             size="large"
                                             className={classes.button}
-                                            onClick={updateOpen}
-                                            updateModal={updateModal}
-                                            updateClose={updateClose}
-                                            apicall={apicall}
+                                            onClick={() => updatepass(book._id)}
                                         >
                                             <EditIcon />
                                         </Button>
@@ -97,11 +105,9 @@ export const BookTable = ({ apicall, books, isLoading }) => {
                                             color="primary"
                                             size="large"
                                             className={classes.button}
-                                            onClick={deleteOpen}
-                                            deleteModal={deleteModal}
-                                            deleteClose={deleteClose}
-                                            bookid={book._id}
-                                            apicall={apicall}
+                                            onClick={() => {
+                                                deletepass(book._id)
+                                            }}
                                         >
                                             <DeleteForeverIcon />
                                         </Button>
@@ -112,6 +118,18 @@ export const BookTable = ({ apicall, books, isLoading }) => {
                         </TableBody>
                     </Table>
                 </TableContainer>
+                <DeleteBooksModal
+                    deletemodal={deletemodal}
+                    deleteclose={deleteclose}
+                    book_id={Bookid}
+                    apicall={apicall}
+                />
+                <UpdateBooksModal
+                    updatemodal={updatemodal}
+                    updateclose={updateclose}
+                    apicall={apicall}
+                    book_id={Bookid}
+                />
             </div>
         )
     } else {
