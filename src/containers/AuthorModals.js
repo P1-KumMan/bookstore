@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export const UpdateAuthorModal = ({
-    Upmodal,
+    upmodal,
     updateclose,
     refresh,
     authorid,
@@ -31,7 +31,7 @@ export const UpdateAuthorModal = ({
             aria-labelledby="transition-modal-title"
             aria-describedby="transition-modal-description"
             className={classes.modal}
-            open={Upmodal}
+            open={upmodal}
             onClose={updateclose}
             closeAfterTransition
             BackdropComponent={Backdrop}
@@ -39,7 +39,7 @@ export const UpdateAuthorModal = ({
                 timeout: 500,
             }}
         >
-            <Fade in={Upmodal}>
+            <Fade in={upmodal}>
                 <div className={classes.paper}>
                     <UpdateAuthorForm
                         refresh={refresh}
@@ -53,6 +53,7 @@ export const UpdateAuthorModal = ({
 }
 export const AddAuthorModal = ({ addmodal, addauthorclose, apicall }) => {
     const classes = useStyles()
+    console.log(addmodal)
     return (
         <Modal
             aria-labelledby="transition-modal-title"
@@ -69,7 +70,7 @@ export const AddAuthorModal = ({ addmodal, addauthorclose, apicall }) => {
             <Fade in={addmodal}>
                 <div className={classes.paper}>
                     <AddAuthorForm
-                        refresh={apicall}
+                        apicall={apicall}
                         closemodal={addauthorclose}
                     ></AddAuthorForm>
                 </div>
@@ -79,7 +80,7 @@ export const AddAuthorModal = ({ addmodal, addauthorclose, apicall }) => {
 }
 
 export const DeleteAuthorModal = ({
-    Delmodal,
+    delmodal,
     deleteclose,
     refresh,
     authorid,
@@ -90,7 +91,7 @@ export const DeleteAuthorModal = ({
             aria-labelledby="transition-modal-title"
             aria-describedby="transition-modal-description"
             className={classes.modal}
-            open={Delmodal}
+            open={delmodal}
             onClose={deleteclose}
             closeAfterTransition
             BackdropComponent={Backdrop}
@@ -98,7 +99,7 @@ export const DeleteAuthorModal = ({
                 timeout: 500,
             }}
         >
-            <Fade in={Delmodal}>
+            <Fade in={delmodal}>
                 <div className={classes.paper}>
                     <h2 id="transition-modal-title">Are you sure?</h2>
                     <button

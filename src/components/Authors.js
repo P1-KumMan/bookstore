@@ -6,6 +6,7 @@ import Api from '../Api'
 // import { Grid } from '@material-ui/core'
 
 import { AuthorTable } from '../containers/AuthorTable'
+import { AddAuthorModal } from '../containers/AuthorModals'
 
 // const useStyles = makeStyles((theme) => ({
 //     books: {
@@ -76,9 +77,12 @@ const Authors = () => {
                 authors={state}
                 count={count}
                 apicall={apicall}
-                handleclose={addauthorclose}
-                addmodal={addmodal}
             ></AuthorTable>
+            <AddAuthorModal
+                addmodal={addmodal}
+                addauthorclose={addauthorclose}
+                apicall={apicall}
+            />
         </div>
     )
 }

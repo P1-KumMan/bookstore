@@ -84,7 +84,11 @@ export const AddBookForm = ({ apicall, closemodal }) => {
     )
 }
 
-export const UpdateBookForm = ({ apicall, closemodal, book_id }) => {
+export const UpdateBookForm = ({ apicall, closemodal, Book, book_id }) => {
+    console.log(Book)
+    // let bookname = book.bookname
+    // let book_id = book.book_id
+    console.log(book_id)
     const titile = useInputvalue('')
     const [Authorslt, setAuthorslt] = useState([])
     const author = useInputvalue('')
@@ -123,7 +127,7 @@ export const UpdateBookForm = ({ apicall, closemodal, book_id }) => {
                     if (!validation()) {
                         return false
                     } else {
-                        Api.patch(`books/${book_id}`, {
+                        Api.patch(`books/${Book._id}`, {
                             bookname: titile.value,
                             author: author.value,
                         }).then((res) => {
@@ -139,13 +143,18 @@ export const UpdateBookForm = ({ apicall, closemodal, book_id }) => {
                 }}
             >
                 <label>Book Name</label>
-                <input {...titile} />
+                <input
+                    {...titile}
+                    defaultValue={Book.bookname}
+                    placeholder={Book.bookname}
+                ></input>
                 <div style={{ fontSize: 12, color: 'red' }}>
                     {state.nameError}
                 </div>
                 <br></br>
                 <label>Author</label>
-                <select {...author}>
+                <select {...author} defaultValue={Book.author}>
+                    <option key={'default'}>{Book.author}</option>
                     {Authorslt.map((author) => (
                         <option key={author._id}>{author.author}</option>
                     ))}

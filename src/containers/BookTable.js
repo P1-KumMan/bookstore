@@ -36,8 +36,9 @@ const useStyles = makeStyles((theme) => ({
 export const BookTable = ({ apicall, books, isLoading }) => {
     console.log(...books)
     const classes = useStyles()
-    const [deletemodal, setdeletemodal] = useState(false)
     const [Bookid, setBookid] = useState('')
+    const [deletemodal, setdeletemodal] = useState(false)
+    const [Book, setBook] = useState('')
     const [updatemodal, setupdatemodal] = useState(false)
 
     const deletepass = (book_id) => {
@@ -46,8 +47,8 @@ export const BookTable = ({ apicall, books, isLoading }) => {
         return book_id
     }
 
-    const updatepass = (book_id) => {
-        setBookid(book_id)
+    const updatepass = (book) => {
+        setBook(book)
         updateopen()
     }
     const deleteopen = () => {
@@ -99,7 +100,7 @@ export const BookTable = ({ apicall, books, isLoading }) => {
                                             size="large"
                                             className={classes.button}
                                             onClick={() => {
-                                                updatepass(book._id)
+                                                updatepass(book, book.book_id)
                                             }}
                                         >
                                             <EditIcon />
@@ -133,6 +134,7 @@ export const BookTable = ({ apicall, books, isLoading }) => {
                     updatemodal={updatemodal}
                     updateclose={updateclose}
                     apicall={apicall}
+                    Book={Book}
                     book_id={Bookid}
                 />
             </div>

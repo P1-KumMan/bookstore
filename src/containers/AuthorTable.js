@@ -34,20 +34,20 @@ const useStyles = makeStyles((theme) => ({
 
 export const AuthorTable = ({ loaded, authors, count, apicall, authorid }) => {
     const classes = useStyles()
-    const [Delmodal, setDelmodal] = useState(false)
-    const [Upmodal, setUpmodal] = useState(false)
+    const [delmodal, setdelmodal] = useState(false)
+    const [upmodal, setupmodal] = useState(false)
 
     const updateopen = () => {
-        setUpmodal(true)
+        setupmodal(true)
     }
     const updateclose = () => {
-        setUpmodal(false)
+        setupmodal(false)
     }
     const deleteopen = () => {
-        setDelmodal(true)
+        setdelmodal(true)
     }
     const deleteclose = () => {
-        setDelmodal(false)
+        setdelmodal(false)
     }
     if (!loaded) {
         return (
@@ -82,7 +82,7 @@ export const AuthorTable = ({ loaded, authors, count, apicall, authorid }) => {
                                             size="large"
                                             className={classes.button}
                                             onClick={updateopen}
-                                            Upmodal={Upmodal}
+                                            upmodal={upmodal}
                                             updateClose={updateclose}
                                             refresh={apicall}
                                             authorid={authorid}
@@ -95,7 +95,7 @@ export const AuthorTable = ({ loaded, authors, count, apicall, authorid }) => {
                                             size="large"
                                             className={classes.button}
                                             onClick={deleteopen}
-                                            Delmodal={Delmodal}
+                                            delmodal={delmodal}
                                             deleteClose={deleteclose}
                                             refresh={apicall}
                                             authorid={authorid}

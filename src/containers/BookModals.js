@@ -50,6 +50,7 @@ export const UpdateBooksModal = ({
     updatemodal,
     apicall,
     updateclose,
+    Book,
     book_id,
 }) => {
     const classes = useStyles()
@@ -72,6 +73,7 @@ export const UpdateBooksModal = ({
                         onSubmit={() => true}
                         apicall={apicall}
                         closemodal={updateclose}
+                        Book={Book}
                         book_id={book_id}
                     ></UpdateBookForm>
                 </div>
@@ -88,6 +90,7 @@ export const DeleteBooksModal = ({
 }) => {
     const classes = useStyles()
     console.log(book_id)
+    // let book_id=book.book_id;
     return (
         <Modal
             aria-labelledby="transition-modal-title"
