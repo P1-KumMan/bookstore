@@ -34,21 +34,23 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export const BookTable = ({ apicall, books, isLoading }) => {
+    console.log(...books)
     const classes = useStyles()
     const [deletemodal, setdeletemodal] = useState(false)
     const [Bookid, setBookid] = useState('')
     const [updatemodal, setupdatemodal] = useState(false)
 
-    const deletepass = ({ book_id }) => {
+    const deletepass = (book_id) => {
         setBookid(book_id)
-        deleteOpen()
+        deleteopen()
+        return book_id
     }
 
-    const updatepass = ({ book_id }) => {
+    const updatepass = (book_id) => {
         setBookid(book_id)
-        updateOpen()
+        updateopen()
     }
-    const deleteOpen = () => {
+    const deleteopen = () => {
         setdeletemodal(true)
     }
 
@@ -56,14 +58,14 @@ export const BookTable = ({ apicall, books, isLoading }) => {
         setdeletemodal(false)
     }
 
-    const updateOpen = () => {
+    const updateopen = () => {
         setupdatemodal(true)
     }
 
     const updateclose = () => {
         setupdatemodal(false)
     }
-
+    console.log(deletemodal)
     if (!isLoading) {
         return (
             <div>
@@ -96,7 +98,9 @@ export const BookTable = ({ apicall, books, isLoading }) => {
                                             color="primary"
                                             size="large"
                                             className={classes.button}
-                                            onClick={() => updatepass(book._id)}
+                                            onClick={() => {
+                                                updatepass(book._id)
+                                            }}
                                         >
                                             <EditIcon />
                                         </Button>
@@ -107,6 +111,7 @@ export const BookTable = ({ apicall, books, isLoading }) => {
                                             className={classes.button}
                                             onClick={() => {
                                                 deletepass(book._id)
+                                                console.log(book._id)
                                             }}
                                         >
                                             <DeleteForeverIcon />

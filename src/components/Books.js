@@ -53,7 +53,6 @@ const Books = () => {
             setstate(res.data)
         })
     }, [])
-
     return (
         <div>
             <Button variant="contained" color="primary" onClick={addbooksopen}>
@@ -63,6 +62,7 @@ const Books = () => {
                 addmodal={addmodal}
                 addbookclose={addbookclose}
                 apicall={apicall}
+                // onSubmit={() => true}
             />
             <BookTable books={state} apicall={apicall} isLoading={isLoading} />
         </div>

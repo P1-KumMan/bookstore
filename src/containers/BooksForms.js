@@ -6,7 +6,7 @@ const useInputvalue = (initialvalue) => {
     return {
         value,
         onChange: (e) => setvalue(e.target.value),
-        resetValue: () => setvalue(''),
+        resetvalue: () => setvalue(''),
     }
 }
 
@@ -46,6 +46,7 @@ export const AddBookForm = ({ apicall, closemodal }) => {
                 onSubmit={(e) => {
                     e.preventDefault()
                     // onSubmit(titile.value, author.value)
+                    console.log(titile.value, author.value)
                     if (!validation()) {
                         return false
                     } else {
@@ -83,7 +84,7 @@ export const AddBookForm = ({ apicall, closemodal }) => {
     )
 }
 
-export const UpdateBookForm = ({ apicall, onSubmit, closemodal, book_id }) => {
+export const UpdateBookForm = ({ apicall, closemodal, book_id }) => {
     const titile = useInputvalue('')
     const [Authorslt, setAuthorslt] = useState([])
     const author = useInputvalue('')
@@ -118,7 +119,7 @@ export const UpdateBookForm = ({ apicall, onSubmit, closemodal, book_id }) => {
             <form
                 onSubmit={(e) => {
                     e.preventDefault()
-                    onSubmit(titile.value, author.value)
+                    // onSubmit(titile.value, author.value)
                     if (!validation()) {
                         return false
                     } else {

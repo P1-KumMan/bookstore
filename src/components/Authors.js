@@ -30,17 +30,17 @@ import { AuthorTable } from '../containers/AuthorTable'
 
 const Authors = () => {
     // const classes = useStyles()
-    const [Addmodal, setAddmodal] = useState(false)
+    const [addmodal, setaddmodal] = useState(false)
     const [isLoading, setisLoading] = useState(true)
     const [state, setstate] = useState([])
     const [count, setcount] = useState([])
 
-    const addauthorOpen = () => {
-        setAddmodal(true)
+    const addauthoropen = () => {
+        setaddmodal(true)
     }
 
-    const addauthorClose = () => {
-        setAddmodal(false)
+    const addauthorclose = () => {
+        setaddmodal(false)
     }
     const apicall = () => {
         Api.get('author').then((res) => {
@@ -68,7 +68,7 @@ const Authors = () => {
 
     return (
         <div>
-            <Button variant="contained" color="primary" onClick={addauthorOpen}>
+            <Button variant="contained" color="primary" onClick={addauthoropen}>
                 Add Author
             </Button>
             <AuthorTable
@@ -76,8 +76,8 @@ const Authors = () => {
                 authors={state}
                 count={count}
                 apicall={apicall}
-                handleClose={addauthorClose}
-                Addmodal={Addmodal}
+                handleclose={addauthorclose}
+                addmodal={addmodal}
             ></AuthorTable>
         </div>
     )

@@ -69,6 +69,7 @@ export const UpdateBooksModal = ({
             <Fade in={updatemodal}>
                 <div className={classes.paper}>
                     <UpdateBookForm
+                        onSubmit={() => true}
                         apicall={apicall}
                         closemodal={updateclose}
                         book_id={book_id}
@@ -78,13 +79,7 @@ export const UpdateBooksModal = ({
         </Modal>
     )
 }
-export const handledelete = (book_id, apicall, deleteclose) => {
-    Api.delete(`books/${book_id}`).then((res) => {
-        console.log(res)
-        apicall()
-        deleteclose()
-    })
-}
+// export const
 export const DeleteBooksModal = ({
     deletemodal,
     deleteclose,
@@ -92,6 +87,7 @@ export const DeleteBooksModal = ({
     apicall,
 }) => {
     const classes = useStyles()
+    console.log(book_id)
     return (
         <Modal
             aria-labelledby="transition-modal-title"
@@ -109,9 +105,14 @@ export const DeleteBooksModal = ({
                 <div className={classes.paper}>
                     <h2 id="transition-modal-title">Are you sure?</h2>
                     <button
-                        onClick={() =>
-                            handledelete(book_id, apicall, deleteclose)
-                        }
+                        onClick={() => {
+                            Api.delete(`books/${book_id}`).then((res) => {
+                                console.log(book_id)
+                                console.log(res)
+                                apicall()
+                                deleteclose()
+                            })
+                        }}
                     >
                         Yes
                     </button>

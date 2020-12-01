@@ -1,17 +1,17 @@
 import { React, useState } from 'react'
 import Api from '../Api'
 
-const useInputValue = (initialValue) => {
-    const [value, setValue] = useState(initialValue)
+const useInputvalue = (initialvalue) => {
+    const [value, setvalue] = useState(initialvalue)
     return {
         value,
-        onChange: (e) => setValue(e.target.value),
-        resetValue: () => setValue(''),
+        onChange: (e) => setvalue(e.target.value),
+        resevalue: () => setvalue(''),
     }
 }
 
-export const AddAuthorForm = ({ onSubmit, closemodal, apicall }) => {
-    const author = useInputValue('')
+export const AddAuthorForm = ({ closemodal, apicall }) => {
+    const author = useInputvalue('')
     const initialState = {
         authorError: '',
     }
@@ -31,7 +31,6 @@ export const AddAuthorForm = ({ onSubmit, closemodal, apicall }) => {
             <form
                 onSubmit={(e) => {
                     e.preventDefault()
-                    onSubmit(author.value)
                     if (!validation()) {
                         return false
                     } else {
@@ -45,7 +44,7 @@ export const AddAuthorForm = ({ onSubmit, closemodal, apicall }) => {
                         })
                         setstate(initialState)
                     }
-                    author.resetValue()
+                    author.resetvalue()
                 }}
             >
                 <label>Author</label>
@@ -70,7 +69,7 @@ export const UpdateAuthorForm = ({
     apicall,
     authordata,
 }) => {
-    const author = useInputValue('')
+    const author = useInputvalue('')
     const initialState = {
         authorError: '',
     }
@@ -105,7 +104,7 @@ export const UpdateAuthorForm = ({
                         })
                         setstate(initialState)
                     }
-                    author.resetValue()
+                    author.resetvalue()
                 }}
             >
                 <label>Author</label>

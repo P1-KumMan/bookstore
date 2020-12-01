@@ -37,16 +37,16 @@ export const AuthorTable = ({ loaded, authors, count, apicall, authorid }) => {
     const [Delmodal, setDelmodal] = useState(false)
     const [Upmodal, setUpmodal] = useState(false)
 
-    const updateOpen = () => {
+    const updateopen = () => {
         setUpmodal(true)
     }
-    const updateClose = () => {
+    const updateclose = () => {
         setUpmodal(false)
     }
-    const deleteOpen = () => {
+    const deleteopen = () => {
         setDelmodal(true)
     }
-    const deleteClose = () => {
+    const deleteclose = () => {
         setDelmodal(false)
     }
     if (!loaded) {
@@ -81,9 +81,9 @@ export const AuthorTable = ({ loaded, authors, count, apicall, authorid }) => {
                                             color="primary"
                                             size="large"
                                             className={classes.button}
-                                            onClick={updateOpen}
+                                            onClick={updateopen}
                                             Upmodal={Upmodal}
-                                            updateClose={updateClose}
+                                            updateClose={updateclose}
                                             refresh={apicall}
                                             authorid={authorid}
                                         >
@@ -94,9 +94,9 @@ export const AuthorTable = ({ loaded, authors, count, apicall, authorid }) => {
                                             color="primary"
                                             size="large"
                                             className={classes.button}
-                                            onClick={deleteOpen}
+                                            onClick={deleteopen}
                                             Delmodal={Delmodal}
-                                            deleteClose={deleteClose}
+                                            deleteClose={deleteclose}
                                             refresh={apicall}
                                             authorid={authorid}
                                         >

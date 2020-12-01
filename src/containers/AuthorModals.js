@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const UpdateAuthorModal = ({
     Upmodal,
-    updateClose,
+    updateclose,
     refresh,
     authorid,
 }) => {
@@ -32,7 +32,7 @@ export const UpdateAuthorModal = ({
             aria-describedby="transition-modal-description"
             className={classes.modal}
             open={Upmodal}
-            onClose={updateClose}
+            onClose={updateclose}
             closeAfterTransition
             BackdropComponent={Backdrop}
             BackdropProps={{
@@ -42,9 +42,8 @@ export const UpdateAuthorModal = ({
             <Fade in={Upmodal}>
                 <div className={classes.paper}>
                     <UpdateAuthorForm
-                        onSubmit={() => true}
                         refresh={refresh}
-                        closemodal={updateClose}
+                        closemodal={updateclose}
                         authorid={authorid}
                     ></UpdateAuthorForm>
                 </div>
@@ -52,27 +51,26 @@ export const UpdateAuthorModal = ({
         </Modal>
     )
 }
-export const AddAuthorModal = ({ Addmodal, addClose, apicall }) => {
+export const AddAuthorModal = ({ addmodal, addauthorclose, apicall }) => {
     const classes = useStyles()
     return (
         <Modal
             aria-labelledby="transition-modal-title"
             aria-describedby="transition-modal-description"
             className={classes.modal}
-            open={Addmodal}
-            onClose={addClose}
+            open={addmodal}
+            onClose={addauthorclose}
             closeAfterTransition
             BackdropComponent={Backdrop}
             BackdropProps={{
                 timeout: 500,
             }}
         >
-            <Fade in={Addmodal}>
+            <Fade in={addmodal}>
                 <div className={classes.paper}>
                     <AddAuthorForm
-                        onSubmit={() => true}
                         refresh={apicall}
-                        closemodal={addClose}
+                        closemodal={addauthorclose}
                     ></AddAuthorForm>
                 </div>
             </Fade>
@@ -80,16 +78,9 @@ export const AddAuthorModal = ({ Addmodal, addClose, apicall }) => {
     )
 }
 
-const handledelete = ({ authorid, refresh, deleteClose }) => {
-    Api.delete(`author/${authorid}`).then((res) => {
-        console.log(res)
-        refresh()
-        deleteClose()
-    })
-}
 export const DeleteAuthorModal = ({
     Delmodal,
-    deleteClose,
+    deleteclose,
     refresh,
     authorid,
 }) => {
@@ -100,7 +91,7 @@ export const DeleteAuthorModal = ({
             aria-describedby="transition-modal-description"
             className={classes.modal}
             open={Delmodal}
-            onClose={deleteClose}
+            onClose={deleteclose}
             closeAfterTransition
             BackdropComponent={Backdrop}
             BackdropProps={{
@@ -111,13 +102,17 @@ export const DeleteAuthorModal = ({
                 <div className={classes.paper}>
                     <h2 id="transition-modal-title">Are you sure?</h2>
                     <button
-                        onClick={() =>
-                            handledelete(authorid, refresh, deleteClose)
-                        }
+                        onClick={() => {
+                            Api.delete(`author/${authorid}`).then((res) => {
+                                console.log(res)
+                                refresh()
+                                deleteclose()
+                            })
+                        }}
                     >
                         Yes
                     </button>
-                    <button onClick={deleteClose}>No</button>
+                    <button onClick={deleteclose}>No</button>
                 </div>
             </Fade>
         </Modal>
