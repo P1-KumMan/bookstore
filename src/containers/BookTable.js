@@ -100,7 +100,7 @@ export const BookTable = ({ apicall, books, isLoading }) => {
                                             size="large"
                                             className={classes.button}
                                             onClick={() => {
-                                                updatepass(book, book.book_id)
+                                                updatepass(book, book._id)
                                             }}
                                         >
                                             <EditIcon />

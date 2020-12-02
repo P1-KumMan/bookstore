@@ -22,10 +22,11 @@ const useStyles = makeStyles((theme) => ({
 export const UpdateAuthorModal = ({
     upmodal,
     updateclose,
-    refresh,
-    authorid,
+    apicall,
+    Authordata,
 }) => {
     const classes = useStyles()
+    console.log(Authordata)
     return (
         <Modal
             aria-labelledby="transition-modal-title"
@@ -42,9 +43,9 @@ export const UpdateAuthorModal = ({
             <Fade in={upmodal}>
                 <div className={classes.paper}>
                     <UpdateAuthorForm
-                        refresh={refresh}
+                        apicall={apicall}
                         closemodal={updateclose}
-                        authorid={authorid}
+                        Authordata={Authordata}
                     ></UpdateAuthorForm>
                 </div>
             </Fade>
@@ -71,7 +72,7 @@ export const AddAuthorModal = ({ addmodal, addauthorclose, apicall }) => {
                 <div className={classes.paper}>
                     <AddAuthorForm
                         apicall={apicall}
-                        closemodal={addauthorclose}
+                        addauthorclose={addauthorclose}
                     ></AddAuthorForm>
                 </div>
             </Fade>
@@ -82,8 +83,8 @@ export const AddAuthorModal = ({ addmodal, addauthorclose, apicall }) => {
 export const DeleteAuthorModal = ({
     delmodal,
     deleteclose,
-    refresh,
-    authorid,
+    apicall,
+    Authorid,
 }) => {
     const classes = useStyles()
     return (
@@ -104,9 +105,9 @@ export const DeleteAuthorModal = ({
                     <h2 id="transition-modal-title">Are you sure?</h2>
                     <button
                         onClick={() => {
-                            Api.delete(`author/${authorid}`).then((res) => {
+                            Api.delete(`author/${Authorid}`).then((res) => {
                                 console.log(res)
-                                refresh()
+                                apicall()
                                 deleteclose()
                             })
                         }}

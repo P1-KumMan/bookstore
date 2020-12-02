@@ -6,11 +6,12 @@ const useInputvalue = (initialvalue) => {
     return {
         value,
         onChange: (e) => setvalue(e.target.value),
-        resevalue: () => setvalue(''),
+        resetvalue: () => setvalue(''),
     }
 }
 
-export const AddAuthorForm = ({ closemodal, apicall }) => {
+export const AddAuthorForm = ({ addauthorclose, apicall }) => {
+    console.log('rendering?')
     const author = useInputvalue('')
     const initialState = {
         authorError: '',
@@ -40,7 +41,7 @@ export const AddAuthorForm = ({ closemodal, apicall }) => {
                             console.log(res)
                             console.log(res.data)
                             apicall()
-                            closemodal()
+                            addauthorclose()
                         })
                         setstate(initialState)
                     }
@@ -63,16 +64,12 @@ export const AddAuthorForm = ({ closemodal, apicall }) => {
 //     upauthorOpen()
 //     return authordata
 // }
-export const UpdateAuthorForm = ({
-    onSubmit,
-    closemodal,
-    apicall,
-    authordata,
-}) => {
+export const UpdateAuthorForm = ({ Authordata, closemodal, apicall }) => {
     const author = useInputvalue('')
     const initialState = {
         authorError: '',
     }
+    console.log(Authordata)
     const [state, setstate] = useState(initialState)
     const validation = () => {
         let nameError = ''
@@ -88,13 +85,12 @@ export const UpdateAuthorForm = ({
         <div>
             <form
                 onSubmit={(e) => {
-                    console.log(authordata._id)
+                    console.log(Authordata)
                     e.preventDefault()
-                    onSubmit(author.value)
                     if (!validation()) {
                         return false
                     } else {
-                        Api.patch(`author/${authordata._id}`, {
+                        Api.patch(`author/${Authordata._id}`, {
                             author: author.value,
                         }).then((res) => {
                             console.log(res)
@@ -108,7 +104,11 @@ export const UpdateAuthorForm = ({
                 }}
             >
                 <label>Author</label>
-                <input {...author}></input>
+                <input
+                    {...author}
+                    defaultValue={Authordata.author}
+                    placeholder={Authordata.author}
+                ></input>
                 <div style={{ fontSize: 12, color: 'red' }}>
                     {state.authorError}
                 </div>
