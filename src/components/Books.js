@@ -3,6 +3,8 @@ import { Button } from '@material-ui/core'
 import Api from '../Api'
 import { BookTable } from '../containers/BookTable'
 import { AddBooksModal } from '../containers/BookModals'
+import CircularIndeterminate from '../containers/CircularInterminate'
+
 // import { makeStyles } from '@material-ui/core'
 
 // import { Grid } from '@material-ui/core'
@@ -53,20 +55,32 @@ const Books = () => {
             setstate(res.data)
         })
     }, [])
-    return (
-        <div>
-            <Button variant="contained" color="primary" onClick={addbooksopen}>
-                Add Books
-            </Button>
-            <AddBooksModal
-                addmodal={addmodal}
-                addbookclose={addbookclose}
-                apicall={apicall}
-                // onSubmit={() => true}
-            />
-            <BookTable books={state} apicall={apicall} isLoading={isLoading} />
-        </div>
-    )
+    if (!isLoading) {
+        return (
+            <div>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={addbooksopen}
+                >
+                    Add Books
+                </Button>
+                <AddBooksModal
+                    addmodal={addmodal}
+                    addbookclose={addbookclose}
+                    apicall={apicall}
+                    // onSubmit={() => true}
+                />
+                <BookTable
+                    books={state}
+                    apicall={apicall}
+                    isLoading={isLoading}
+                />
+            </div>
+        )
+    } else {
+        return <CircularIndeterminate />
+    }
 }
 
 export default Books

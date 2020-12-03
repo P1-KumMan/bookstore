@@ -7,7 +7,7 @@ import Api from '../Api'
 
 import { AuthorTable } from '../containers/AuthorTable'
 import { AddAuthorModal } from '../containers/AuthorModals'
-
+import CircularIndeterminate from '../containers/CircularInterminate'
 // const useStyles = makeStyles((theme) => ({
 //     books: {
 //         alignItems: 'center',
@@ -66,25 +66,32 @@ const Authors = () => {
             setcount(res.data)
         })
     }, [])
-
-    return (
-        <div>
-            <Button variant="contained" color="primary" onClick={addauthoropen}>
-                Add Author
-            </Button>
-            <AuthorTable
-                isLoading={isLoading}
-                authors={state}
-                count={count}
-                apicall={apicall}
-            ></AuthorTable>
-            <AddAuthorModal
-                addmodal={addmodal}
-                addauthorclose={addauthorclose}
-                apicall={apicall}
-            />
-        </div>
-    )
+    if (!isLoading)
+        return (
+            <div>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={addauthoropen}
+                >
+                    Add Author
+                </Button>
+                <AuthorTable
+                    isLoading={isLoading}
+                    authors={state}
+                    count={count}
+                    apicall={apicall}
+                ></AuthorTable>
+                <AddAuthorModal
+                    addmodal={addmodal}
+                    addauthorclose={addauthorclose}
+                    apicall={apicall}
+                />
+            </div>
+        )
+    else {
+        return <CircularIndeterminate />
+    }
 }
 
 export default Authors

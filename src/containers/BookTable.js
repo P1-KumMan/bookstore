@@ -67,79 +67,75 @@ export const BookTable = ({ apicall, books, isLoading }) => {
         setupdatemodal(false)
     }
     console.log(deletemodal)
-    if (!isLoading) {
-        return (
-            <div>
-                <TableContainer component={Paper}>
-                    <Table className={classes.table} aria-label="simple table">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>#</TableCell>
-                                <TableCell align="right">Book Name</TableCell>
-                                <TableCell align="right">Author</TableCell>
-                                <TableCell align="right"></TableCell>
+    return (
+        <div>
+            <TableContainer component={Paper}>
+                <Table className={classes.table} aria-label="simple table">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>#</TableCell>
+                            <TableCell align="right">Book Name</TableCell>
+                            <TableCell align="right">Author</TableCell>
+                            <TableCell align="right"></TableCell>
+                            <TableCell align="right"></TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {books.map((book, i) => (
+                            <TableRow key={book._id}>
+                                <TableCell component="th" scope="row">
+                                    {i + 1}
+                                </TableCell>
+                                <TableCell align="right">
+                                    {book.bookname}
+                                </TableCell>
+                                <TableCell align="right">
+                                    {book.author}
+                                </TableCell>
+                                <TableCell align="right">
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        size="large"
+                                        className={classes.button}
+                                        onClick={() => {
+                                            updatepass(book, book._id)
+                                        }}
+                                    >
+                                        <EditIcon />
+                                    </Button>
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        size="large"
+                                        className={classes.button}
+                                        onClick={() => {
+                                            deletepass(book._id)
+                                            console.log(book._id)
+                                        }}
+                                    >
+                                        <DeleteForeverIcon />
+                                    </Button>
+                                </TableCell>
                                 <TableCell align="right"></TableCell>
                             </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {books.map((book, i) => (
-                                <TableRow key={book._id}>
-                                    <TableCell component="th" scope="row">
-                                        {i + 1}
-                                    </TableCell>
-                                    <TableCell align="right">
-                                        {book.bookname}
-                                    </TableCell>
-                                    <TableCell align="right">
-                                        {book.author}
-                                    </TableCell>
-                                    <TableCell align="right">
-                                        <Button
-                                            variant="contained"
-                                            color="primary"
-                                            size="large"
-                                            className={classes.button}
-                                            onClick={() => {
-                                                updatepass(book, book._id)
-                                            }}
-                                        >
-                                            <EditIcon />
-                                        </Button>
-                                        <Button
-                                            variant="contained"
-                                            color="primary"
-                                            size="large"
-                                            className={classes.button}
-                                            onClick={() => {
-                                                deletepass(book._id)
-                                                console.log(book._id)
-                                            }}
-                                        >
-                                            <DeleteForeverIcon />
-                                        </Button>
-                                    </TableCell>
-                                    <TableCell align="right"></TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-                <DeleteBooksModal
-                    deletemodal={deletemodal}
-                    deleteclose={deleteclose}
-                    book_id={Bookid}
-                    apicall={apicall}
-                />
-                <UpdateBooksModal
-                    updatemodal={updatemodal}
-                    updateclose={updateclose}
-                    apicall={apicall}
-                    Book={Book}
-                    book_id={Bookid}
-                />
-            </div>
-        )
-    } else {
-        return <div>Loading...</div>
-    }
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+            <DeleteBooksModal
+                deletemodal={deletemodal}
+                deleteclose={deleteclose}
+                book_id={Bookid}
+                apicall={apicall}
+            />
+            <UpdateBooksModal
+                updatemodal={updatemodal}
+                updateclose={updateclose}
+                apicall={apicall}
+                Book={Book}
+                book_id={Bookid}
+            />
+        </div>
+    )
 }
