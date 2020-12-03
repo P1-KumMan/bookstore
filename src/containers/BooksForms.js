@@ -5,6 +5,7 @@ const useInputvalue = (initialvalue) => {
     const [value, setvalue] = useState(initialvalue)
     return {
         value,
+        setvalue,
         onChange: (e) => setvalue(e.target.value),
         resetvalue: () => setvalue(''),
     }
@@ -13,6 +14,7 @@ const useInputvalue = (initialvalue) => {
 export const AddBookForm = ({ apicall, closemodal }) => {
     const titile = useInputvalue('')
     const [Authorslt, setAuthorslt] = useState([])
+    console.log()
     const author = useInputvalue('')
     const initialstate = {
         nameError: '',
@@ -32,7 +34,7 @@ export const AddBookForm = ({ apicall, closemodal }) => {
             nameError = 'Name canot be blank'
         }
         if (!author.value) {
-            authorError = 'Author canot be blank'
+            author.setvalue(Authorslt[0]?.author)
         }
         if (authorError || nameError) {
             setstate({ authorError, nameError })
@@ -50,6 +52,7 @@ export const AddBookForm = ({ apicall, closemodal }) => {
                     if (!validation()) {
                         return false
                     } else {
+                        console.log(author.value)
                         Api.post(`books`, {
                             bookname: titile.value,
                             author: author.value,
@@ -72,7 +75,7 @@ export const AddBookForm = ({ apicall, closemodal }) => {
                 </div>
                 <br></br>
                 <label>Author</label>
-                <select {...author}>
+                <select {...author} defaultValue={Authorslt.author}>
                     {Authorslt.map((author) => (
                         <option key={author._id}>{author.author}</option>
                     ))}

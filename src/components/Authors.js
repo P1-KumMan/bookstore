@@ -3,7 +3,7 @@ import { Button } from '@material-ui/core'
 import Api from '../Api'
 // import { makeStyles } from '@material-ui/core'
 
-// import { Grid } from '@material-ui/core'
+import { Grid } from '@material-ui/core'
 
 import { AuthorTable } from '../containers/AuthorTable'
 import { AddAuthorModal } from '../containers/AuthorModals'
@@ -69,24 +69,36 @@ const Authors = () => {
     if (!isLoading)
         return (
             <div>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={addauthoropen}
+                <Grid
+                    container
+                    spacing={2}
+                    direction="column"
+                    display="flex"
+                    flex-direction="row"
                 >
-                    Add Author
-                </Button>
-                <AuthorTable
-                    isLoading={isLoading}
-                    authors={state}
-                    count={count}
-                    apicall={apicall}
-                ></AuthorTable>
-                <AddAuthorModal
-                    addmodal={addmodal}
-                    addauthorclose={addauthorclose}
-                    apicall={apicall}
-                />
+                    <Grid item>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={addauthoropen}
+                        >
+                            Add Author
+                        </Button>
+                    </Grid>
+                    <Grid item>
+                        <AuthorTable
+                            isLoading={isLoading}
+                            authors={state}
+                            count={count}
+                            apicall={apicall}
+                        ></AuthorTable>
+                        <AddAuthorModal
+                            addmodal={addmodal}
+                            addauthorclose={addauthorclose}
+                            apicall={apicall}
+                        />
+                    </Grid>
+                </Grid>
             </div>
         )
     else {

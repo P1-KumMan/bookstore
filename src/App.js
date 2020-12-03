@@ -3,7 +3,7 @@ import React from 'react'
 import ButtonAppBar from './containers/ButtonAppBar'
 import { Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core'
-
+import ListItem from '@material-ui/core/ListItem'
 import Authors from './components/Authors'
 import Books from './components/Books'
 import List from '@material-ui/core/List'
@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
             width: drawerWidth,
             flexShrink: 0,
         },
+        marginBottom: '10px',
     },
     appBar: {
         [theme.breakpoints.up('sm')]: {
@@ -46,6 +47,9 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
         padding: theme.spacing(3),
     },
+    tablecontent: {
+        verticalAlign: 'middle',
+    },
 }))
 
 const App = () => {
@@ -54,57 +58,74 @@ const App = () => {
         <div className="App">
             <BrowserRouter>
                 <ButtonAppBar />
-                <div className={classes.root}>
-                    <Drawer
-                        className={classes.drawer}
-                        variant="permanent"
-                        classes={{
-                            paper: classes.drawerPaper,
-                        }}
-                        anchor="left"
-                    >
-                        <div className={classes.toolbar} />
-                        <h2>BOOKSTORE</h2>
-                        <Divider />
-                        <List>
-                            <Link to="/">
-                                <ListItemIcon></ListItemIcon>
-                                <ListItemText primary="Books " />
-                            </Link>
-                        </List>
-                        <Divider />
-                        <List>
-                            <Link to="/author">
-                                <ListItemIcon></ListItemIcon>
-                                <ListItemText primary="Authors" />
-                            </Link>
-                        </List>
-                    </Drawer>
-                    <div className={classes.tablecontent}>
-                        <Grid
-                            container
-                            spacing={2}
-                            direction="column"
-                            justify="flex-start"
-                            alignItems="center"
-                            className={classes.books}
-                        >
-                            <Switch>
-                                <Route path="/" exact>
-                                    <Grid item>
-                                        <Books />
-                                    </Grid>
-                                </Route>
-                                <Route path="/author" exact>
-                                    <Grid item>
-                                        <Authors />
-                                    </Grid>
-                                </Route>
-                                <Route path="/" render={() => <div>404</div>} />
-                            </Switch>
+                <Grid
+                    container
+                    spacing={2}
+                    direction="column"
+                    justify="flex-start"
+                    alignItems="center"
+                    className={classes.books}
+                >
+                    <div className={classes.root}>
+                        <Grid item>
+                            <Drawer
+                                className={classes.drawer}
+                                variant="permanent"
+                                classes={{
+                                    paper: classes.drawerPaper,
+                                }}
+                                anchor="left"
+                            >
+                                <div className={classes.toolbar} />
+                                <h2>BOOKSTORE</h2>
+                                <Divider />
+                                <List>
+                                    <ListItem
+                                        button
+                                        key="ojd"
+                                        component={Link}
+                                        to="/"
+                                    >
+                                        <ListItemIcon></ListItemIcon>
+                                        <ListItemText primary="Books" />
+                                    </ListItem>
+                                </List>
+                                <Divider />
+                                <List>
+                                    <ListItem
+                                        button
+                                        key="ojd"
+                                        component={Link}
+                                        to="/author"
+                                    >
+                                        <ListItemIcon></ListItemIcon>
+                                        <ListItemText primary="Authors" />
+                                    </ListItem>
+                                </List>
+                            </Drawer>
+                        </Grid>
+                        <Grid item verticalAlign="middle">
+                            <div className={classes.tablecontent}>
+                                <Switch>
+                                    <Route path="/" exact>
+                                        <Grid item>
+                                            <Books />
+                                        </Grid>
+                                    </Route>
+                                    <Route path="/author" exact>
+                                        <Grid item>
+                                            <Authors />
+                                        </Grid>
+                                    </Route>
+                                    <Route
+                                        path="/"
+                                        render={() => <div>404</div>}
+                                    />
+                                </Switch>
+                            </div>
                         </Grid>
                     </div>
-                </div>
+                </Grid>
             </BrowserRouter>
         </div>
     )

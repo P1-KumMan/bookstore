@@ -4,6 +4,7 @@ import Api from '../Api'
 import { BookTable } from '../containers/BookTable'
 import { AddBooksModal } from '../containers/BookModals'
 import CircularIndeterminate from '../containers/CircularInterminate'
+import { Grid } from '@material-ui/core'
 
 // import { makeStyles } from '@material-ui/core'
 
@@ -58,24 +59,35 @@ const Books = () => {
     if (!isLoading) {
         return (
             <div>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={addbooksopen}
+                <Grid
+                    container
+                    spacing={2}
+                    direction="column"
+                    display="flex"
+                    flex-direction="row"
                 >
-                    Add Books
-                </Button>
-                <AddBooksModal
-                    addmodal={addmodal}
-                    addbookclose={addbookclose}
-                    apicall={apicall}
-                    // onSubmit={() => true}
-                />
-                <BookTable
-                    books={state}
-                    apicall={apicall}
-                    isLoading={isLoading}
-                />
+                    <Grid item>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={addbooksopen}
+                        >
+                            Add Books
+                        </Button>
+                    </Grid>
+                    <Grid item>
+                        <AddBooksModal
+                            addmodal={addmodal}
+                            addbookclose={addbookclose}
+                            apicall={apicall}
+                        />
+                        <BookTable
+                            books={state}
+                            apicall={apicall}
+                            isLoading={isLoading}
+                        />
+                    </Grid>
+                </Grid>
             </div>
         )
     } else {

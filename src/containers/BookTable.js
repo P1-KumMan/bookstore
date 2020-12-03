@@ -17,9 +17,9 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    table: {
-        minWidth: 650,
-    },
+    // table: {
+    //     minWidth:
+    // },
     modal: {
         display: 'flex',
         alignItems: 'center',
