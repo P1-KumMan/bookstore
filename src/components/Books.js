@@ -67,15 +67,6 @@ const Books = () => {
                     flex-direction="row"
                 >
                     <Grid item>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            onClick={addbooksopen}
-                        >
-                            Add Books
-                        </Button>
-                    </Grid>
-                    <Grid item>
                         <AddBooksModal
                             addmodal={addmodal}
                             addbookclose={addbookclose}
@@ -86,6 +77,15 @@ const Books = () => {
                             apicall={apicall}
                             isLoading={isLoading}
                         />
+                    </Grid>
+                    <Grid item>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={addbooksopen}
+                        >
+                            Add Books
+                        </Button>
                     </Grid>
                 </Grid>
             </div>

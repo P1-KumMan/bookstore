@@ -20,9 +20,9 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    table: {
-        minWidth: 650,
-    },
+    // table: {
+    //     minWidth: 650,
+    // },
     modal: {
         display: 'flex',
         alignItems: 'center',
@@ -65,10 +65,10 @@ export const AuthorTable = ({ isLoading, authors, count, apicall }) => {
                         <TableHead>
                             <TableRow>
                                 <TableCell>#</TableCell>
-                                <TableCell align="right">Author</TableCell>
-                                <TableCell align="right">No of Books</TableCell>
-                                <TableCell align="right"></TableCell>
-                                <TableCell align="right"></TableCell>
+                                <TableCell>Author</TableCell>
+                                <TableCell>No of Books</TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -77,13 +77,11 @@ export const AuthorTable = ({ isLoading, authors, count, apicall }) => {
                                     <TableCell component="th" scope="row">
                                         {i}
                                     </TableCell>
-                                    <TableCell align="right">
-                                        {author.author}
-                                    </TableCell>
-                                    <TableCell align="right">
+                                    <TableCell>{author.author}</TableCell>
+                                    <TableCell>
                                         {count[author.author] || '0'}
                                     </TableCell>
-                                    <TableCell align="right">
+                                    <TableCell>
                                         <Button
                                             variant="contained"
                                             color="primary"
@@ -108,7 +106,7 @@ export const AuthorTable = ({ isLoading, authors, count, apicall }) => {
                                             <DeleteForeverIcon />
                                         </Button>
                                     </TableCell>
-                                    <TableCell align="right"></TableCell>
+                                    <TableCell></TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>

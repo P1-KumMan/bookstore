@@ -1,5 +1,7 @@
 import { React, useState } from 'react'
 import Api from '../Api'
+import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button'
 
 const useInputvalue = (initialvalue) => {
     const [value, setvalue] = useState(initialvalue)
@@ -48,13 +50,15 @@ export const AddAuthorForm = ({ addauthorclose, apicall }) => {
                     author.resetvalue()
                 }}
             >
-                <label>Author</label>
-                <input {...author} />
+                {/* <input {...author} /> */}
+                <TextField id="standard-basic" label="Author" {...author} />
                 <div style={{ fontSize: 12, color: 'red' }}>
                     {state.authorError}
                 </div>
                 <br></br>
-                <button type="submit">submit</button>
+                <Button variant="contained" type="submit" color="primary">
+                    submit
+                </Button>
             </form>
         </div>
     )
@@ -103,17 +107,25 @@ export const UpdateAuthorForm = ({ Authordata, closemodal, apicall }) => {
                     author.resetvalue()
                 }}
             >
-                <label>Author</label>
-                <input
+                {/* <input
                     {...author}
                     defaultValue={Authordata.author}
                     placeholder={Authordata.author}
-                ></input>
+                ></input> */}
+                <TextField
+                    id="standard-basic"
+                    label="Author"
+                    {...author}
+                    placeholder={Authordata.author}
+                />
+
                 <div style={{ fontSize: 12, color: 'red' }}>
                     {state.authorError}
                 </div>
                 <br></br>
-                <button type="submit">submit</button>
+                <Button variant="contained" type="submit" color="primary">
+                    submit
+                </Button>
             </form>
         </div>
     )

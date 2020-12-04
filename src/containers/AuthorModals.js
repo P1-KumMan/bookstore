@@ -2,7 +2,7 @@ import { AddAuthorForm, UpdateAuthorForm } from '../containers/AuthorForms'
 import Modal from '@material-ui/core/Modal'
 import Backdrop from '@material-ui/core/Backdrop'
 import Fade from '@material-ui/core/Fade'
-import { makeStyles } from '@material-ui/core'
+import { makeStyles, Button } from '@material-ui/core'
 import Api from '../Api'
 
 const useStyles = makeStyles((theme) => ({
@@ -103,7 +103,9 @@ export const DeleteAuthorModal = ({
             <Fade in={delmodal}>
                 <div className={classes.paper}>
                     <h2 id="transition-modal-title">Are you sure?</h2>
-                    <button
+                    <Button
+                        variant="contained"
+                        color="primary"
                         onClick={() => {
                             Api.delete(`author/${Authorid}`).then((res) => {
                                 console.log(res)
@@ -113,8 +115,14 @@ export const DeleteAuthorModal = ({
                         }}
                     >
                         Yes
-                    </button>
-                    <button onClick={deleteclose}>No</button>
+                    </Button>
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        onClick={deleteclose}
+                    >
+                        No
+                    </Button>
                 </div>
             </Fade>
         </Modal>

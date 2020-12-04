@@ -1,5 +1,9 @@
 import { React, useState, useEffect } from 'react'
 import Api from '../Api'
+import { TextField, Button } from '@material-ui/core'
+import Select from '@material-ui/core/Select'
+import InputLabel from '@material-ui/core/InputLabel'
+import MenuItem from '@material-ui/core/MenuItem'
 
 const useInputvalue = (initialvalue) => {
     const [value, setvalue] = useState(initialvalue)
@@ -68,20 +72,37 @@ export const AddBookForm = ({ apicall, closemodal }) => {
                     author.resetvalue()
                 }}
             >
-                <label>Book Name</label>
-                <input {...titile} />
+                {/* <input {...titile} /> */}
+                <TextField id="standard-basic" label="Book Name" {...titile} />
                 <div style={{ fontSize: 12, color: 'red' }}>
                     {state.nameError}
                 </div>
                 <br></br>
-                <label>Author</label>
+                {/* <label>Author</label>
                 <select {...author} defaultValue={Authorslt.author}>
                     {Authorslt.map((author) => (
                         <option key={author._id}>{author.author}</option>
                     ))}
-                </select>
+                </select> */}
+                <InputLabel id="demo-simple-select-label">Author</InputLabel>
+                <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    {...author}
+                >
+                    {Authorslt.map((author) => (
+                        <MenuItem
+                            // placeholder={Book.author}
+                            value={author.author}
+                        >
+                            {author.author}
+                        </MenuItem>
+                    ))}
+                </Select>
                 <br></br>
-                <button type="submit">submit</button>
+                <Button variant="contained" type="submit" color="primary">
+                    submit
+                </Button>
             </form>
         </div>
     )
@@ -145,25 +166,48 @@ export const UpdateBookForm = ({ apicall, closemodal, Book, book_id }) => {
                     author.resetvalue()
                 }}
             >
-                <label>Book Name</label>
-                <input
+                {/* <label>Book Name</label> */}
+                {/* <input
                     {...titile}
                     defaultValue={Book.bookname}
                     placeholder={Book.bookname}
-                ></input>
+                ></input> */}
+                <TextField
+                    id="standard-basic"
+                    placeholder={Book.bookname}
+                    label="Book Name"
+                    {...titile}
+                />
                 <div style={{ fontSize: 12, color: 'red' }}>
                     {state.nameError}
                 </div>
                 <br></br>
-                <label>Author</label>
+                {/* <label>Author</label>
                 <select {...author} defaultValue={Book.author}>
                     <option key={'default'}>{Book.author}</option>
                     {Authorslt.map((author) => (
                         <option key={author._id}>{author.author}</option>
                     ))}
-                </select>
+                </select> */}
+                <InputLabel id="demo-simple-select-label">Author</InputLabel>
+                <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    {...author}
+                >
+                    {Authorslt.map((author) => (
+                        <MenuItem
+                            // placeholder={Book.author}
+                            value={author.author}
+                        >
+                            {author.author}
+                        </MenuItem>
+                    ))}
+                </Select>
                 <br></br>
-                <button type="submit">submit</button>
+                <Button variant="contained" type="submit" color="primary">
+                    submit
+                </Button>
             </form>
         </div>
     )

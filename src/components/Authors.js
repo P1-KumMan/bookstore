@@ -77,15 +77,6 @@ const Authors = () => {
                     flex-direction="row"
                 >
                     <Grid item>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            onClick={addauthoropen}
-                        >
-                            Add Author
-                        </Button>
-                    </Grid>
-                    <Grid item>
                         <AuthorTable
                             isLoading={isLoading}
                             authors={state}
@@ -97,6 +88,15 @@ const Authors = () => {
                             addauthorclose={addauthorclose}
                             apicall={apicall}
                         />
+                    </Grid>
+                    <Grid item>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={addauthoropen}
+                        >
+                            Add Author
+                        </Button>
                     </Grid>
                 </Grid>
             </div>
