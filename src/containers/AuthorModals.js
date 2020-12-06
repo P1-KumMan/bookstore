@@ -85,6 +85,7 @@ export const DeleteAuthorModal = ({
     deleteclose,
     apicall,
     Authorid,
+    Authordata,
 }) => {
     const classes = useStyles()
     return (
@@ -112,6 +113,7 @@ export const DeleteAuthorModal = ({
                                 apicall()
                                 deleteclose()
                             })
+                            Api.delete(`books/${Authordata.author}`)
                         }}
                     >
                         Yes

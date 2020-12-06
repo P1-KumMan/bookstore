@@ -123,6 +123,7 @@ export const AuthorTable = ({ isLoading, authors, count, apicall }) => {
                     deleteclose={deleteclose}
                     apicall={apicall}
                     Authorid={Authorid}
+                    Authordata={Authordata}
                 />
             </div>
         )
