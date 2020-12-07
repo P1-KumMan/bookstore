@@ -34,6 +34,14 @@ const useStyles = makeStyles((theme) => ({
         boxShadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3),
     },
+    tableheadin: {
+        fontWeight: 700,
+        fontSize: 16,
+    },
+    button: {
+        marginLeft: theme.spacing(2),
+        marginRight: theme.spacing(2),
+    },
 }))
 
 export const AuthorTable = ({ isLoading, authors, count, apicall }) => {
@@ -64,21 +72,28 @@ export const AuthorTable = ({ isLoading, authors, count, apicall }) => {
                     <Table className={classes.table} aria-label="simple table">
                         <TableHead>
                             <TableRow>
-                                <TableCell>#</TableCell>
-                                <TableCell>Author</TableCell>
-                                <TableCell>No of Books</TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
+                                <TableCell className={classes.tableheadin}>
+                                    #
+                                </TableCell>
+                                <TableCell className={classes.tableheadin}>
+                                    Author
+                                </TableCell>
+                                <TableCell className={classes.tableheadin}>
+                                    No of Books
+                                </TableCell>
+                                <TableCell
+                                    className={classes.tableheadin}
+                                ></TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {authors.map((author, i) => (
                                 <TableRow key={author._id}>
                                     <TableCell component="th" scope="row">
-                                        {i}
+                                        {i + 1}
                                     </TableCell>
                                     <TableCell>{author.author}</TableCell>
-                                    <TableCell>
+                                    <TableCell align="left">
                                         {count[author.author] || '0'}
                                     </TableCell>
                                     <TableCell>
@@ -91,22 +106,24 @@ export const AuthorTable = ({ isLoading, authors, count, apicall }) => {
                                                 updateopen(author)
                                                 console.log(author)
                                             }}
+                                            startIcon={<EditIcon />}
                                         >
-                                            <EditIcon />
+                                            Edit
                                         </Button>
+
                                         <Button
-                                            variant="contained"
-                                            color="primary"
+                                            variant="outlined"
+                                            color="secondary"
                                             size="large"
                                             className={classes.button}
                                             onClick={() =>
                                                 deleteopen(author._id)
                                             }
+                                            startIcon={<DeleteForeverIcon />}
                                         >
-                                            <DeleteForeverIcon />
+                                            Delete
                                         </Button>
                                     </TableCell>
-                                    <TableCell></TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>

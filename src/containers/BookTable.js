@@ -31,9 +31,17 @@ const useStyles = makeStyles((theme) => ({
         boxShadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3),
     },
+    tableheadin: {
+        fontWeight: 700,
+        fontSize: 16,
+    },
+    button: {
+        marginLeft: theme.spacing(2),
+        marginRight: theme.spacing(2),
+    },
 }))
 
-export const BookTable = ({ apicall, books, isLoading }) => {
+export const BookTable = ({ apicall, books }) => {
     console.log(...books)
     const classes = useStyles()
     const [Bookid, setBookid] = useState('')
@@ -73,11 +81,29 @@ export const BookTable = ({ apicall, books, isLoading }) => {
                 <Table className={classes.table} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell>#</TableCell>
-                            <TableCell align="right">Book Name</TableCell>
-                            <TableCell align="right">Author</TableCell>
-                            <TableCell align="right"></TableCell>
-                            <TableCell align="right"></TableCell>
+                            <TableCell className={classes.tableheadin}>
+                                #
+                            </TableCell>
+                            <TableCell
+                                className={classes.tableheadin}
+                                align="right"
+                            >
+                                Book Name
+                            </TableCell>
+                            <TableCell
+                                className={classes.tableheadin}
+                                align="right"
+                            >
+                                Author
+                            </TableCell>
+                            <TableCell
+                                className={classes.tableheadin}
+                                align="right"
+                            ></TableCell>
+                            <TableCell
+                                className={classes.tableheadin}
+                                align="right"
+                            ></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -101,20 +127,22 @@ export const BookTable = ({ apicall, books, isLoading }) => {
                                         onClick={() => {
                                             updatepass(book, book._id)
                                         }}
+                                        startIcon={<EditIcon />}
                                     >
-                                        <EditIcon />
+                                        Edit
                                     </Button>
                                     <Button
-                                        variant="contained"
-                                        color="primary"
+                                        variant="outlined"
+                                        color="secondary"
                                         size="large"
                                         className={classes.button}
                                         onClick={() => {
                                             deletepass(book._id)
                                             console.log(book._id)
                                         }}
+                                        startIcon={<DeleteForeverIcon />}
                                     >
-                                        <DeleteForeverIcon />
+                                        Delete
                                     </Button>
                                 </TableCell>
                                 <TableCell align="right"></TableCell>

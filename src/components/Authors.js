@@ -1,36 +1,42 @@
 import React, { useState, useEffect } from 'react'
-import { Button } from '@material-ui/core'
+import { Button, Typography } from '@material-ui/core'
 import Api from '../Api'
-// import { makeStyles } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core'
 
 import { Grid } from '@material-ui/core'
 
 import { AuthorTable } from '../containers/AuthorTable'
 import { AddAuthorModal } from '../containers/AuthorModals'
 import CircularIndeterminate from '../containers/CircularInterminate'
-// const useStyles = makeStyles((theme) => ({
-//     books: {
-//         alignItems: 'center',
-//         justifyContent: 'center',
-//     },
-//     table: {
-//         minWidth: 650,
-//     },
-//     modal: {
-//         display: 'flex',
-//         alignItems: 'center',
-//         justifyContent: 'center',
-//     },
-//     paper: {
-//         backgroundColor: theme.palette.background.paper,
-//         border: '2px solid #000',
-//         boxShadow: theme.shadows[5],
-//         padding: theme.spacing(2, 4, 3),
-//     },
-// }))
+
+import AddIcon from '@material-ui/icons/Add'
+
+const useStyles = makeStyles((theme) => ({
+    books: {
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    table: {
+        minWidth: 650,
+    },
+    modal: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    paper: {
+        backgroundColor: theme.palette.background.paper,
+        border: '2px solid #000',
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing(2, 4, 3),
+    },
+    button: {
+        fontsize: 10,
+    },
+}))
 
 const Authors = () => {
-    // const classes = useStyles()
+    const classes = useStyles()
     const [addmodal, setaddmodal] = useState(false)
     const [isLoading, setisLoading] = useState(true)
     const [state, setstate] = useState([])
@@ -71,12 +77,23 @@ const Authors = () => {
             <div>
                 <Grid
                     container
-                    spacing={2}
+                    spacing={3}
                     direction="column"
                     display="flex"
                     flex-direction="row"
                 >
-                    <Grid item>
+                    <Grid item xs={1}>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={addauthoropen}
+                            startIcon={<AddIcon />}
+                            className={classes.button}
+                        >
+                            <Typography variant={'body2'}>Add</Typography>
+                        </Button>
+                    </Grid>
+                    <Grid item xs={12}>
                         <AuthorTable
                             isLoading={isLoading}
                             authors={state}
@@ -88,15 +105,6 @@ const Authors = () => {
                             addauthorclose={addauthorclose}
                             apicall={apicall}
                         />
-                    </Grid>
-                    <Grid item>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            onClick={addauthoropen}
-                        >
-                            Add Author
-                        </Button>
                     </Grid>
                 </Grid>
             </div>

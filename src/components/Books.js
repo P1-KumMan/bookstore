@@ -6,6 +6,7 @@ import { AddBooksModal } from '../containers/BookModals'
 import CircularIndeterminate from '../containers/CircularInterminate'
 import { Grid } from '@material-ui/core'
 
+import AddIcon from '@material-ui/icons/Add'
 // import { makeStyles } from '@material-ui/core'
 
 // import { Grid } from '@material-ui/core'
@@ -66,6 +67,16 @@ const Books = () => {
                     display="flex"
                     flex-direction="row"
                 >
+                    <Grid item xs={1}>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={addbooksopen}
+                            startIcon={<AddIcon />}
+                        >
+                            Add
+                        </Button>
+                    </Grid>
                     <Grid item>
                         <AddBooksModal
                             addmodal={addmodal}
@@ -77,15 +88,6 @@ const Books = () => {
                             apicall={apicall}
                             isLoading={isLoading}
                         />
-                    </Grid>
-                    <Grid item>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            onClick={addbooksopen}
-                        >
-                            Add Books
-                        </Button>
                     </Grid>
                 </Grid>
             </div>

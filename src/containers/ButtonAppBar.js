@@ -1,3 +1,13 @@
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import ListItemText from '@material-ui/core/ListItemText'
+import { Link } from 'react-router-dom'
+import Authors from '../components/Authors'
+import Books from '../components/Books'
+import { Route, Switch } from 'react-router-dom'
+import LibraryBooksIcon from '@material-ui/icons/LibraryBooks'
+import PersonIcon from '@material-ui/icons/Person'
 import React from 'react'
 import AppBar from '@material-ui/core/AppBar'
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -5,29 +15,17 @@ import Divider from '@material-ui/core/Divider'
 import Drawer from '@material-ui/core/Drawer'
 import Hidden from '@material-ui/core/Hidden'
 import IconButton from '@material-ui/core/IconButton'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
 import MenuIcon from '@material-ui/icons/Menu'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
-import { Link } from 'react-router-dom'
-import { Grid } from '@material-ui/core'
-import Authors from '../components/Authors'
-import Books from '../components/Books'
-import { Route, Switch } from 'react-router-dom'
-import Container from '@material-ui/core/Container'
-import LibraryBooksIcon from '@material-ui/icons/LibraryBooks'
-import PersonIcon from '@material-ui/icons/Person'
 
 const drawerWidth = 240
 
 const useStyles = makeStyles((theme) => ({
-    // root: {
-    //     display: 'flex',
-    // },
+    root: {
+        display: 'flex',
+    },
     drawer: {
         [theme.breakpoints.up('sm')]: {
             width: drawerWidth,
@@ -45,7 +43,6 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('sm')]: {
             display: 'none',
         },
-        alignContent: 'center',
     },
     // necessary for content to be below app bar
     toolbar: theme.mixins.toolbar,
@@ -53,11 +50,11 @@ const useStyles = makeStyles((theme) => ({
         width: drawerWidth,
     },
     content: {
-        // marginTop: `calc(100% - ${drawerWidth}px)`,
-        marginTop: `${drawerWidth}`,
-        paddingTop: '8rem',
         flexGrow: 1,
         padding: theme.spacing(3),
+    },
+    marg: {
+        margin: theme.spacing(2),
     },
 }))
 
@@ -70,16 +67,19 @@ function ResponsiveDrawer(props) {
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen)
     }
-
     const drawer = (
         <div>
-            <div className={classes.toolbar} />
             <Divider />
-            <List>
+            <div className={classes.toolbar}>
+                <Typography variant="h4" className={classes.marg}>
+                    Bookstore
+                </Typography>
+            </div>
+            <Divider />
+            <List className={classes.listtt}>
                 <ListItem button key="ojd" component={Link} to="/">
                     <ListItemIcon>
-                        {' '}
-                        <LibraryBooksIcon />{' '}
+                        <LibraryBooksIcon />
                     </ListItemIcon>
                     <ListItemText primary="Books" />
                 </ListItem>
@@ -93,6 +93,7 @@ function ResponsiveDrawer(props) {
                     <ListItemText primary="Authors" />
                 </ListItem>
             </List>
+            <Divider />
         </div>
     )
 
@@ -113,9 +114,9 @@ function ResponsiveDrawer(props) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h4" noWrap>
-                        Bookstore
-                    </Typography>
+                    {/* <Typography variant="h6" noWrap>
+                        Responsive drawer
+                    </Typography> */}
                 </Toolbar>
             </AppBar>
             <nav className={classes.drawer} aria-label="mailbox folders">
@@ -149,28 +150,20 @@ function ResponsiveDrawer(props) {
                     </Drawer>
                 </Hidden>
             </nav>
-            <Container className={classes.content}>
+            <main className={classes.content}>
                 <div className={classes.toolbar} />
-                <Grid>
-                    <Grid>
-                        <div className={classes.tablecontent}>
-                            <Switch>
-                                <Route path="/" exact>
-                                    <Grid item xs={12}>
-                                        <Books />
-                                    </Grid>
-                                </Route>
-                                <Route path="/author" exact>
-                                    <Grid item>
-                                        <Authors />
-                                    </Grid>
-                                </Route>
-                                <Route path="/" render={() => <div>404</div>} />
-                            </Switch>
-                        </div>
-                    </Grid>
-                </Grid>
-            </Container>
+                <div className={classes.tablecontent}>
+                    <Switch>
+                        <Route path="/" exact>
+                            <Books />
+                        </Route>
+                        <Route path="/author" exact>
+                            <Authors />
+                        </Route>
+                        <Route path="/" render={() => <div>404</div>} />
+                    </Switch>
+                </div>
+            </main>
         </div>
     )
 }
