@@ -58,9 +58,10 @@ export const AuthorTable = ({ isLoading, authors, count, apicall }) => {
     const updateclose = () => {
         setupmodal(false)
     }
-    const deleteopen = (authorid) => {
+    const deleteopen = (authorid, author) => {
         setdelmodal(true)
         setAuthorid(authorid)
+        setAuthordata(author)
     }
     const deleteclose = () => {
         setdelmodal(false)
@@ -104,7 +105,7 @@ export const AuthorTable = ({ isLoading, authors, count, apicall }) => {
                                             className={classes.button}
                                             onClick={() => {
                                                 updateopen(author)
-                                                console.log(author)
+                                                // console.log(author)
                                             }}
                                             startIcon={<EditIcon />}
                                         >
@@ -117,7 +118,7 @@ export const AuthorTable = ({ isLoading, authors, count, apicall }) => {
                                             size="large"
                                             className={classes.button}
                                             onClick={() =>
-                                                deleteopen(author._id)
+                                                deleteopen(author._id, author)
                                             }
                                             startIcon={<DeleteForeverIcon />}
                                         >

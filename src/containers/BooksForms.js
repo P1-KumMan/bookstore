@@ -4,6 +4,35 @@ import { TextField, Button } from '@material-ui/core'
 import Select from '@material-ui/core/Select'
 import InputLabel from '@material-ui/core/InputLabel'
 import MenuItem from '@material-ui/core/MenuItem'
+import { makeStyles } from '@material-ui/core'
+
+const useStyles = makeStyles((theme) => ({
+    modal: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    paper: {
+        backgroundColor: theme.palette.background.paper,
+        border: '2px solid #000',
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing(30, 70, 30),
+    },
+    textField: {
+        width: theme.spacing(40),
+    },
+    button: {
+        marginTop: theme.spacing(5),
+    },
+    button1: {
+        marginRight: theme.spacing(10),
+        marginTop: theme.spacing(5),
+    },
+    button2: {
+        marginLeft: theme.spacing(8),
+        marginTop: theme.spacing(5),
+    },
+}))
 
 const useInputvalue = (initialvalue) => {
     const [value, setvalue] = useState(initialvalue)
@@ -16,6 +45,7 @@ const useInputvalue = (initialvalue) => {
 }
 
 export const AddBookForm = ({ apicall, closemodal }) => {
+    const classes = useStyles()
     const titile = useInputvalue('')
     const [Authorslt, setAuthorslt] = useState([])
     console.log()
@@ -51,7 +81,6 @@ export const AddBookForm = ({ apicall, closemodal }) => {
             <form
                 onSubmit={(e) => {
                     e.preventDefault()
-                    // onSubmit(titile.value, author.value)
                     console.log(titile.value, author.value)
                     if (!validation()) {
                         return false
@@ -72,23 +101,29 @@ export const AddBookForm = ({ apicall, closemodal }) => {
                     author.resetvalue()
                 }}
             >
-                {/* <input {...titile} /> */}
-                <TextField id="standard-basic" label="Book Name" {...titile} />
+                <TextField
+                    id="standard-basic"
+                    label="Book Name"
+                    {...titile}
+                    className={classes.textField}
+                    // variant={FilledInput}
+                />
                 <div style={{ fontSize: 12, color: 'red' }}>
                     {state.nameError}
                 </div>
                 <br></br>
-                {/* <label>Author</label>
-                <select {...author} defaultValue={Authorslt.author}>
-                    {Authorslt.map((author) => (
-                        <option key={author._id}>{author.author}</option>
-                    ))}
-                </select> */}
-                <InputLabel id="demo-simple-select-label">Author</InputLabel>
+
+                <InputLabel
+                    id="demo-simple-select-label"
+                    className={classes.textField}
+                >
+                    Author
+                </InputLabel>
                 <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     {...author}
+                    className={classes.textField}
                 >
                     {Authorslt.map((author) => (
                         <MenuItem
@@ -100,7 +135,21 @@ export const AddBookForm = ({ apicall, closemodal }) => {
                     ))}
                 </Select>
                 <br></br>
-                <Button variant="contained" type="submit" color="primary">
+                <Button
+                    variant="outlined"
+                    type="submit"
+                    color="secondary"
+                    className={classes.button1}
+                    onClick={closemodal}
+                >
+                    close
+                </Button>
+                <Button
+                    variant="contained"
+                    type="submit"
+                    color="primary"
+                    className={classes.button2}
+                >
                     submit
                 </Button>
             </form>
@@ -109,9 +158,8 @@ export const AddBookForm = ({ apicall, closemodal }) => {
 }
 
 export const UpdateBookForm = ({ apicall, closemodal, Book, book_id }) => {
+    const classes = useStyles()
     console.log(Book)
-    // let bookname = book.bookname
-    // let book_id = book.book_id
     console.log(book_id)
     const titile = useInputvalue('')
     const [Authorslt, setAuthorslt] = useState([])
@@ -147,7 +195,6 @@ export const UpdateBookForm = ({ apicall, closemodal, Book, book_id }) => {
             <form
                 onSubmit={(e) => {
                     e.preventDefault()
-                    // onSubmit(titile.value, author.value)
                     if (!validation()) {
                         return false
                     } else {
@@ -166,46 +213,47 @@ export const UpdateBookForm = ({ apicall, closemodal, Book, book_id }) => {
                     author.resetvalue()
                 }}
             >
-                {/* <label>Book Name</label> */}
-                {/* <input
-                    {...titile}
-                    defaultValue={Book.bookname}
-                    placeholder={Book.bookname}
-                ></input> */}
                 <TextField
                     id="standard-basic"
                     placeholder={Book.bookname}
                     label="Book Name"
                     {...titile}
+                    className={classes.textField}
                 />
                 <div style={{ fontSize: 12, color: 'red' }}>
                     {state.nameError}
                 </div>
                 <br></br>
-                {/* <label>Author</label>
-                <select {...author} defaultValue={Book.author}>
-                    <option key={'default'}>{Book.author}</option>
-                    {Authorslt.map((author) => (
-                        <option key={author._id}>{author.author}</option>
-                    ))}
-                </select> */}
+
                 <InputLabel id="demo-simple-select-label">Author</InputLabel>
                 <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     {...author}
+                    className={classes.textField}
                 >
                     {Authorslt.map((author) => (
-                        <MenuItem
-                            // placeholder={Book.author}
-                            value={author.author}
-                        >
+                        <MenuItem value={author.author}>
                             {author.author}
                         </MenuItem>
                     ))}
                 </Select>
                 <br></br>
-                <Button variant="contained" type="submit" color="primary">
+                <Button
+                    variant="outlined"
+                    type="submit"
+                    color="secondary"
+                    className={classes.button1}
+                    onClick={closemodal}
+                >
+                    close
+                </Button>
+                <Button
+                    variant="contained"
+                    type="submit"
+                    color="primary"
+                    className={classes.button2}
+                >
                     submit
                 </Button>
             </form>

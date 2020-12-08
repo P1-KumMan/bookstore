@@ -55,6 +55,7 @@ const useStyles = makeStyles((theme) => ({
     },
     marg: {
         margin: theme.spacing(2),
+        fontWeight: 550,
     },
 }))
 

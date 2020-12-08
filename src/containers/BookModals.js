@@ -3,7 +3,7 @@ import Backdrop from '@material-ui/core/Backdrop'
 import Fade from '@material-ui/core/Fade'
 import { AddBookForm } from '../containers/BooksForms'
 import { UpdateBookForm } from '../containers/BooksForms'
-import { makeStyles } from '@material-ui/core'
+import { makeStyles, Button } from '@material-ui/core'
 import Api from '../Api'
 
 const useStyles = makeStyles((theme) => ({
@@ -16,7 +16,19 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.background.paper,
         border: '2px solid #000',
         boxShadow: theme.shadows[5],
-        padding: theme.spacing(2, 4, 3),
+        padding: theme.spacing(30, 70, 30),
+    },
+    paper1: {
+        backgroundColor: theme.palette.background.paper,
+        border: '2px solid #000',
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing(15, 35, 15),
+    },
+    button1: {
+        marginRight: theme.spacing(2),
+    },
+    button2: {
+        marginLeft: theme.spacing(1),
     },
 }))
 
@@ -36,7 +48,7 @@ export const AddBooksModal = ({ addmodal, addbookclose, apicall }) => {
             }}
         >
             <Fade in={addmodal}>
-                <div className={classes.paper}>
+                <div className={classes.paper1}>
                     <AddBookForm
                         apicall={apicall}
                         closemodal={addbookclose}
@@ -68,7 +80,7 @@ export const UpdateBooksModal = ({
             }}
         >
             <Fade in={updatemodal}>
-                <div className={classes.paper}>
+                <div className={classes.paper1}>
                     <UpdateBookForm
                         onSubmit={() => true}
                         apicall={apicall}
@@ -105,9 +117,12 @@ export const DeleteBooksModal = ({
             }}
         >
             <Fade in={deletemodal}>
-                <div className={classes.paper}>
+                <div className={classes.paper1}>
                     <h2 id="transition-modal-title">Are you sure?</h2>
-                    <button
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        className={classes.button1}
                         onClick={() => {
                             Api.delete(`books/${book_id}`).then((res) => {
                                 console.log(book_id)
@@ -118,8 +133,15 @@ export const DeleteBooksModal = ({
                         }}
                     >
                         Yes
-                    </button>
-                    <button onClick={deleteclose}>No</button>
+                    </Button>
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        className={classes.button2}
+                        onClick={deleteclose}
+                    >
+                        No
+                    </Button>
                 </div>
             </Fade>
         </Modal>

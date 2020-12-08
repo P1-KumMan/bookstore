@@ -2,6 +2,27 @@ import { React, useState } from 'react'
 import Api from '../Api'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
+import { makeStyles } from '@material-ui/core'
+
+const useStyles = makeStyles((theme) => ({
+    modal: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    paper: {
+        backgroundColor: theme.palette.background.paper,
+        border: '2px solid #000',
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing(15, 35, 15),
+    },
+    button1: {
+        marginRight: theme.spacing(2),
+    },
+    button2: {
+        marginLeft: theme.spacing(1),
+    },
+}))
 
 const useInputvalue = (initialvalue) => {
     const [value, setvalue] = useState(initialvalue)
@@ -13,6 +34,7 @@ const useInputvalue = (initialvalue) => {
 }
 
 export const AddAuthorForm = ({ addauthorclose, apicall }) => {
+    const classes = useStyles()
     console.log('rendering?')
     const author = useInputvalue('')
     const initialState = {
@@ -56,7 +78,21 @@ export const AddAuthorForm = ({ addauthorclose, apicall }) => {
                     {state.authorError}
                 </div>
                 <br></br>
-                <Button variant="contained" type="submit" color="primary">
+                <Button
+                    variant="outlined"
+                    type="submit"
+                    color="secondary"
+                    className={classes.button1}
+                    onClick={addauthorclose}
+                >
+                    close
+                </Button>
+                <Button
+                    variant="contained"
+                    type="submit"
+                    color="primary"
+                    className={classes.button2}
+                >
                     submit
                 </Button>
             </form>
@@ -69,6 +105,7 @@ export const AddAuthorForm = ({ addauthorclose, apicall }) => {
 //     return authordata
 // }
 export const UpdateAuthorForm = ({ Authordata, closemodal, apicall }) => {
+    const classes = useStyles()
     const author = useInputvalue('')
     const initialState = {
         authorError: '',
@@ -123,7 +160,21 @@ export const UpdateAuthorForm = ({ Authordata, closemodal, apicall }) => {
                     {state.authorError}
                 </div>
                 <br></br>
-                <Button variant="contained" type="submit" color="primary">
+                <Button
+                    variant="outlined"
+                    type="submit"
+                    color="secondary"
+                    className={classes.button1}
+                    onClick={closemodal}
+                >
+                    close
+                </Button>
+                <Button
+                    variant="contained"
+                    type="submit"
+                    color="primary"
+                    className={classes.button2}
+                >
                     submit
                 </Button>
             </form>

@@ -15,7 +15,13 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.background.paper,
         border: '2px solid #000',
         boxShadow: theme.shadows[5],
-        padding: theme.spacing(2, 4, 3),
+        padding: theme.spacing(15, 35, 15),
+    },
+    button1: {
+        marginRight: theme.spacing(2),
+    },
+    button2: {
+        marginLeft: theme.spacing(1),
     },
 }))
 
@@ -88,6 +94,7 @@ export const DeleteAuthorModal = ({
     Authordata,
 }) => {
     const classes = useStyles()
+    console.log(Authordata.author)
     return (
         <Modal
             aria-labelledby="transition-modal-title"
@@ -107,13 +114,18 @@ export const DeleteAuthorModal = ({
                     <Button
                         variant="contained"
                         color="primary"
+                        className={classes.button1}
                         onClick={() => {
                             Api.delete(`author/${Authorid}`).then((res) => {
+                                console.log(res)
+                            })
+                            Api.delete(
+                                `books/author/${Authordata.author}`
+                            ).then((res) => {
                                 console.log(res)
                                 apicall()
                                 deleteclose()
                             })
-                            Api.delete(`books/${Authordata.author}`)
                         }}
                     >
                         Yes
@@ -121,6 +133,7 @@ export const DeleteAuthorModal = ({
                     <Button
                         variant="contained"
                         color="secondary"
+                        className={classes.button2}
                         onClick={deleteclose}
                     >
                         No
