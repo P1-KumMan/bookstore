@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(2),
         fontWeight: 550,
     },
-}))
+})) // necessary for content to be below app bar
 
 function ResponsiveDrawer(props) {
     const { window } = props
@@ -115,9 +115,6 @@ function ResponsiveDrawer(props) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    {/* <Typography variant="h6" noWrap>
-                        Responsive drawer
-                    </Typography> */}
                 </Toolbar>
             </AppBar>
             <nav className={classes.drawer} aria-label="mailbox folders">

@@ -100,10 +100,6 @@ export const AddAuthorForm = ({ addauthorclose, apicall }) => {
     )
 }
 
-// const handleUpdate = (authordata) => {
-//     upauthorOpen()
-//     return authordata
-// }
 export const UpdateAuthorForm = ({ Authordata, closemodal, apicall }) => {
     const classes = useStyles()
     const author = useInputvalue('')
@@ -136,6 +132,12 @@ export const UpdateAuthorForm = ({ Authordata, closemodal, apicall }) => {
                         }).then((res) => {
                             console.log(res)
                             console.log(res.data)
+                        })
+                        Api.patch(`books/author/${Authordata.author}`, {
+                            author: author.value,
+                        }).then((res) => {
+                            console.log(res)
+                            console.log(res.data)
                             apicall()
                             closemodal()
                         })
@@ -144,11 +146,6 @@ export const UpdateAuthorForm = ({ Authordata, closemodal, apicall }) => {
                     author.resetvalue()
                 }}
             >
-                {/* <input
-                    {...author}
-                    defaultValue={Authordata.author}
-                    placeholder={Authordata.author}
-                ></input> */}
                 <TextField
                     id="standard-basic"
                     label="Author"

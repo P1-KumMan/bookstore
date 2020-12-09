@@ -93,7 +93,7 @@ export const UpdateBooksModal = ({
         </Modal>
     )
 }
-// export const
+
 export const DeleteBooksModal = ({
     deletemodal,
     deleteclose,

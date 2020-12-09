@@ -106,7 +106,6 @@ export const AddBookForm = ({ apicall, closemodal }) => {
                     label="Book Name"
                     {...titile}
                     className={classes.textField}
-                    // variant={FilledInput}
                 />
                 <div style={{ fontSize: 12, color: 'red' }}>
                     {state.nameError}
@@ -126,10 +125,7 @@ export const AddBookForm = ({ apicall, closemodal }) => {
                     className={classes.textField}
                 >
                     {Authorslt.map((author) => (
-                        <MenuItem
-                            // placeholder={Book.author}
-                            value={author.author}
-                        >
+                        <MenuItem value={author.author}>
                             {author.author}
                         </MenuItem>
                     ))}
